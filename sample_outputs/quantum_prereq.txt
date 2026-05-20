@@ -1,0 +1,25 @@
+一、為什麼想修這門課
+
+說實話，我一開始是看到課名「貓神獸與科技奇異點」覺得很酷才去試聽，本來只打算來看看。聽完第一堂之後我決定要修。
+
+我目前是資工大三，前兩學期修過人工智慧概論和機器學習概論。量子運算對我來說是「我有點底但完全沒摸過」的領域，線性代數、Hermitian matrix、complex vector 這些工具我熟，但 quantum gate 怎麼從 unitary matrix 對應到實際操作，我看 Nielsen & Chuang 第 2 章和第 4 章後還是覺得隔了一層。這也是我想進這堂課的主要理由。
+
+二、我的準備狀態
+
+數學工具方面：線性代數（大一下，84 分）的 eigenvalue、eigenvector、tensor product 都還算熟。計算機概論（大一上，89 分）涵蓋基本計算理論，後來修離散數學（大二上，78 分）補了複雜度分析的基礎。資料結構與演算法（大二下，82 分）以 Python 為主，我習慣用 NumPy 處理 matrix。
+
+量子背景是我比較弱的部分。我只修過普通物理，沒接觸過量子力學的正式訓練。自學內容包含 Susskind 在 Stanford 公開課的 Quantum Mechanics 前 6 講，以及 Nielsen & Chuang 第 2、4 章。Superposition、entanglement、measurement 的基本概念我可以解釋，能讀 Dirac notation，但 density matrix 的混合態運算還不熟，path integral 完全沒碰過。
+
+實作層面我寫過幾個 Qiskit 練習：Deutsch-Jozsa 演算法、4-qubit Grover search、quantum teleportation demo。Grover 那個我跑在 IBM Quantum 真機（127-qubit Eagle processor）上，結果跟模擬器差很多，我推測是 readout error 沒做 mitigation，這部分我還在研究。另外用 Python 寫過一個 8x8 的 matrix 模擬器，能跑 1-2 qubit 的 gate operations，沒有處理 entanglement。
+
+三、我的動機與想釐清的問題
+
+我承認我對量子運算的近期應用沒太大信心。Shor's algorithm 距離破解實用 RSA 還很遠，現階段的量子優勢相當有限，這方面我同意主流評估。我有興趣的是量子計算的數學結構本身，以及它如何挑戰古典計算複雜度的直覺。
+
+這門課我想釐清的是 quantum speed-up 的實用範圍。oracle model 下成立的 speed-up 不一定能延伸到真實計算模型，我希望在課堂上看到這條界線在哪。另外我也想知道量子機器學習（QSVM、QNN）目前的進展，在哪些場景真的比古典 ML 有優勢。
+
+四、我預期的弱項
+
+我預期自己在 quantum error correction 和 fault tolerance 那部分會最吃力，因為我的 coding theory 背景幾乎是零。surface code 我看過簡介但沒實作過。如果課程有相關預備材料，我會優先讀。
+
+學號：112550026

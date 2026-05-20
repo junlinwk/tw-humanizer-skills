@@ -1,0 +1,63 @@
+# 個人 notes（含 AI 累積的用戶習慣紀錄）
+# 每位安裝者的 ~/.claude/skills/humanize/contexts/*/notes.md 是私人資料
+# repo 中 contexts/*/notes.md 僅為空白模板，不要 commit 已填寫的 notes
+# （安裝後產生的 notes 不在這個 repo 路徑，這條主要為了開發過程中避免誤 commit）
+contexts/*/notes_local.md
+contexts/*/notes.user.md
+
+# 開發測試筆記 / 草稿
+sample_outputs/problem.txt
+sample_outputs/*.draft.txt
+sample_outputs/*_local.txt
+*.tmp
+*.draft
+
+# ─── 備份檔 ────────────────────────────────
+*.bak
+*.backup
+*.orig
+*~
+
+# ─── OS 系統檔 ─────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ─── 編輯器 / IDE ──────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*~
+.*.sw[a-p]
+.netrwhist
+
+# ─── 安裝過程產物 ──────────────────────────
+# install.sh 在 /tmp 跑測試時可能留下的東西
+test_install/
+test_humanize_install/
+
+# ─── 環境 / 機密 ───────────────────────────
+.env
+.env.local
+secrets/
+*.key
+*.pem
+
+# ─── Python 開發產物（如未來加分析腳本）─────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ─── Node 開發產物（如未來加 web demo）──────
+node_modules/
+package-lock.json
+yarn.lock
