@@ -148,7 +148,8 @@ tw-humanizer/
 │   └── F_academic.md                 → 學術專業軌道（最嚴謹，超出 ABCDE 學生光譜）
 │   └── legacy/                       更早期版本
 ├── examples/
-│   └── ai-vs-human.md                對抗性樣本範例庫
+│   ├── ai-vs-human_zh.md             對抗性樣本範例庫（中文輸出）
+│   └── ai-vs-human_en.md             對抗性樣本範例庫（英文輸出）
 ├── self-check.md                     寫作後檢查
 └── sample_outputs/                   生成範例（本地用，不入 repo）
 ```

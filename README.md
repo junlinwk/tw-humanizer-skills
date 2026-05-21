@@ -6,6 +6,60 @@ Context-aware response skill for Claude Code — detects 9 conversational contex
 
 ---
 
+## 安裝
+
+### macOS / Linux
+
+```bash
+git clone https://github.com/junlinwk/tw-humanizer-skills.git
+cd tw-humanizer-skills
+bash install.sh
+```
+
+### Windows（PowerShell 原生）
+
+```powershell
+git clone https://github.com/junlinwk/tw-humanizer-skills.git
+cd tw-humanizer-skills
+.\install.ps1
+```
+
+如果執行政策阻擋：
+```powershell
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
+### Windows（WSL2）
+跟 macOS / Linux 步驟一樣。
+
+### 安裝後
+
+- 互動模式會問你是否啟用「自動觸發」（建議：**是**，這樣 Claude 每次回應前都會自動套用）
+- 完成後 **開新對話** 即生效
+- 安裝位置：`~/.claude/skills/humanize/`（macOS / Linux / WSL2）或 `%USERPROFILE%\.claude\skills\humanize\`（Windows）
+
+### 移除
+
+```bash
+bash uninstall.sh        # macOS / Linux / WSL2
+.\uninstall.ps1          # Windows PowerShell
+```
+
+加 `--keep-notes`（bash）或 `-KeepNotes`（PowerShell）可保留 notes 備份。
+
+### 其他選項
+
+```bash
+bash install.sh --dev        # symlink 模式（開發者用）
+bash install.sh --silent     # 靜默安裝（CI / 腳本用）
+bash install.sh --no-auto    # 不啟用自動觸發
+bash install.sh --help       # 完整旗標說明
+```
+
+完整文件見 [`INSTALL.md`](./INSTALL.md)（含開發者模式、多工具支援、隱私說明、進階設定）。
+
+---
+
 ## 它解決什麼問題
 
 AI 寫的東西常有明顯的「AI 味」：
@@ -68,20 +122,6 @@ AI 寫的東西常有明顯的「AI 味」：
 > 確切日期我自己也不完全確定。建議直接查 Anthropic 的 model card 或官方公告，那邊才會有準確資訊。要不要我幫你找？
 
 **差別**：不確定時不編造，承認限制，引導對方查可靠來源。**這條原則凌駕一切**，因為假裝知道比 AI 味更糟，會直接誤導用戶。
-
----
-
-## 快速安裝
-
-```bash
-git clone <repo-url> humanize
-cd humanize
-bash install.sh
-```
-
-詳見 [`INSTALL.md`](./INSTALL.md)（含 Windows 支援、開發者模式、移除方式、隱私說明）。
-
-安裝會問你是否啟用「自動觸發」（建議：是）。完成後**開新對話**即生效。
 
 ---
 
@@ -216,7 +256,8 @@ humanize/
 │   └── F_academic.md                 → 學術專業（最嚴謹，超出學生 ABCDE 光譜）
 │   └── legacy/                       更早版本（封存）
 ├── examples/
-│   └── ai-vs-human.md                對抗性樣本範例庫
+│   ├── ai-vs-human_zh.md             對抗性樣本範例庫（中文輸出）
+│   └── ai-vs-human_en.md             對抗性樣本範例庫（英文輸出）
 ├── self-check.md                     寫作後檢查
 └── sample_outputs/                   生成範例（本地用，不入 repo）
     ├── journal_ai.txt                B 風格旅遊雜記
@@ -315,7 +356,7 @@ humanize/
 - [`core/universal.md`](./core/universal.md) — 通用核心規則（最高原則在此）
 - [`core/context_detection.md`](./core/context_detection.md) — 語境 / 語言偵測
 - [`core/notes_protocol.md`](./core/notes_protocol.md) — 紀錄系統
-- [`examples/ai-vs-human.md`](./examples/ai-vs-human.md) — 對抗性樣本範例庫
+- [`examples/ai-vs-human_zh.md`](./examples/ai-vs-human_zh.md) / [`ai-vs-human_en.md`](./examples/ai-vs-human_en.md) — 對抗性樣本範例庫（中／英）
 - [`self-check.md`](./self-check.md) — 寫作後 self-check 模板
 
 ---
