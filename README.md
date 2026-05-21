@@ -57,19 +57,56 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 
 - 互動模式會問你是否啟用「自動觸發」（建議：**是**，這樣目標工具每次回應前都會自動套用）
 - 完成後 **開新對話** 即生效
-- Claude Code 安裝位置：`~/.claude/skills/humanize/`（macOS / Linux / WSL2）或 `%USERPROFILE%\.claude\skills\humanize\`（Windows）
-- Codex 安裝位置：`${CODEX_HOME:-~/.codex}/skills/humanize/` 或 `%CODEX_HOME%\skills\humanize\`（未設定時為 `%USERPROFILE%\.codex\skills\humanize\`）
+- Claude Code 安裝位置：`~/.claude/skills/humanize/` + sibling `~/.claude/skills/humanize-data/`（user notes 在後者）
+- Codex 安裝位置：`${CODEX_HOME:-~/.codex}/skills/humanize/` + sibling `${CODEX_HOME:-~/.codex}/skills/humanize-data/`
+- Windows 對應位置把 `~/.claude` 換成 `%USERPROFILE%\.claude`、`~/.codex` 換成 `%USERPROFILE%\.codex`
+
+### 更新 / 升級
+
+```bash
+cd tw-humanizer-skills   # 原本 clone 的位置
+git pull                 # 拿最新 skill
+bash install.sh          # 重跑 installer（Windows: .\install.ps1）
+```
+
+`installer` 會自動：
+
+1. 比對 repo `VERSION` 與已安裝的 `${SKILL_DIR}/VERSION`，印 `0.3.x → 0.4.0` 升級 banner
+2. 整個刷新 `~/.claude/skills/humanize/`（skill payload）
+3. **不動** `~/.claude/skills/humanize-data/`（user notes 永遠安全）
+4. 替換 `~/.claude/CLAUDE.md` 內的 auto-trigger 區塊為新版（含可能更動的路徑 / 邏輯）
+
+開發者 symlink 模式：
+
+```bash
+cd tw-humanizer-skills
+git pull
+# symlink 已指向 repo，內容即時生效
+# 若 SKILL.md 路徑邏輯有變，再跑一次 bash install.sh --dev 同步 instruction file 區塊
+```
+
+驗證已升級：
+
+```bash
+cat ~/.claude/skills/humanize/VERSION         # 應顯示 0.4.0
+ls ~/.claude/skills/humanize-data/contexts/   # 確認 notes 還在
+```
+
+完整升級行為見 [`INSTALL.md`](./INSTALL.md#更新-skill升級流程)。
 
 ### 移除
 
 ```bash
-bash uninstall.sh        # macOS / Linux / WSL2
+bash uninstall.sh        # macOS / Linux / WSL2（預設保留 notes）
 bash uninstall.sh --tool=codex
 .\uninstall.ps1          # Windows PowerShell
 .\uninstall.ps1 -Tool codex
 ```
 
-加 `--keep-notes`（bash）或 `-KeepNotes`（PowerShell）可保留 notes 備份。
+預設**保留** `humanize-data/`（user notes 不動，下次重裝可直接接上）。
+
+想連 notes 一起刪：加 `--purge-data`（bash）或 `-PurgeData`（PowerShell）。
+舊的 `--keep-notes` / `-KeepNotes` 已 deprecated（notes 預設就保留）。
 
 ### 其他選項
 
