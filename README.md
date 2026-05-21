@@ -2,7 +2,7 @@
 
 **讓 AI 回應像人寫的**
 
-Context-aware response skill for Claude Code — detects 9 conversational contexts × 2 output languages, applies the right register, remembers user preferences. Top principle: admit uncertainty, ask when unclear.
+Context-aware response skill for Claude Code and OpenAI Codex — detects 9 conversational contexts × 2 output languages, applies the right register, remembers user preferences. Top principle: admit uncertainty, ask when unclear.
 
 ---
 
@@ -16,7 +16,7 @@ AI 寫的東西常有明顯的「AI 味」：
 - 在學術寫作裡堆「綜上所述」「值得進一步研究」
 - 在不確定時編造或用模糊語言掩護
 
-`humanize` skill 在 Claude 每次回應前：
+`humanize` skill 在 Claude Code / Codex 每次回應前：
 
 1. 偵測對方語境（閒聊 / 情緒 / 求助 / 討論 / 正式 / 親密 / 衝突 / 創作 / 教學）
 2. 偵測輸出語言（中文 / 英文 / 雙語）
@@ -33,6 +33,8 @@ AI 寫的東西常有明顯的「AI 味」：
 git clone https://github.com/junlinwk/tw-humanizer-skills.git
 cd tw-humanizer-skills
 bash install.sh
+# 或安裝到 Codex:
+bash install.sh --tool=codex
 ```
 
 ### Windows（PowerShell 原生）
@@ -41,6 +43,8 @@ bash install.sh
 git clone https://github.com/junlinwk/tw-humanizer-skills.git
 cd tw-humanizer-skills
 .\install.ps1
+# 或安裝到 Codex:
+.\install.ps1 -Tool codex
 ```
 
 如果執行政策阻擋：
@@ -51,15 +55,18 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 
 ### 安裝後
 
-- 互動模式會問你是否啟用「自動觸發」（建議：**是**，這樣 Claude 每次回應前都會自動套用）
+- 互動模式會問你是否啟用「自動觸發」（建議：**是**，這樣目標工具每次回應前都會自動套用）
 - 完成後 **開新對話** 即生效
-- 安裝位置：`~/.claude/skills/humanize/`（macOS / Linux / WSL2）或 `%USERPROFILE%\.claude\skills\humanize\`（Windows）
+- Claude Code 安裝位置：`~/.claude/skills/humanize/`（macOS / Linux / WSL2）或 `%USERPROFILE%\.claude\skills\humanize\`（Windows）
+- Codex 安裝位置：`${CODEX_HOME:-~/.codex}/skills/humanize/` 或 `%CODEX_HOME%\skills\humanize\`（未設定時為 `%USERPROFILE%\.codex\skills\humanize\`）
 
 ### 移除
 
 ```bash
 bash uninstall.sh        # macOS / Linux / WSL2
+bash uninstall.sh --tool=codex
 .\uninstall.ps1          # Windows PowerShell
+.\uninstall.ps1 -Tool codex
 ```
 
 加 `--keep-notes`（bash）或 `-KeepNotes`（PowerShell）可保留 notes 備份。
@@ -68,6 +75,7 @@ bash uninstall.sh        # macOS / Linux / WSL2
 
 ```bash
 bash install.sh --dev        # symlink 模式（開發者用）
+bash install.sh --tool=codex # 安裝到 OpenAI Codex
 bash install.sh --silent     # 靜默安裝（CI / 腳本用）
 bash install.sh --no-auto    # 不啟用自動觸發
 bash install.sh --help       # 完整旗標說明
@@ -231,6 +239,8 @@ humanize/
 ├── install.sh                        安裝腳本
 ├── uninstall.sh                      移除腳本
 ├── .gitignore
+├── agents/
+│   └── openai.yaml                   Codex UI metadata
 ├── core/
 │   ├── universal.md                  通用核心規則（English，語言中立）
 │   ├── lang_zh.md                    中文特定 AI 指紋 patterns
@@ -281,10 +291,10 @@ humanize/
 
 ## 隱私說明
 
-- 所有 `notes.md` 都存在**本地** `~/.claude/skills/humanize/contexts/{N}/notes.md`
-- **不上傳任何雲端**（Claude Code 對話內容會傳到 Anthropic，但這些 notes 檔是 Claude 寫入你本機磁碟的）
+- 所有 `notes.md` 都存在**本地**安裝目錄，例如 `~/.claude/skills/humanize/contexts/{N}/notes.md` 或 `~/.codex/skills/humanize/contexts/{N}/notes.md`
+- **不上傳任何雲端**（AI 工具的對話內容可能送到各自服務端，但這些 notes 檔是 agent 寫入你本機磁碟的）
 - 你可以隨時讀取、編輯、刪除 notes
-- 用戶若要求「別記這個」，Claude 會遵守
+- 用戶若要求「別記這個」，agent 會遵守
 - uninstall.sh 有 `--keep-notes` 旗標可以在移除前備份
 
 ---
@@ -292,10 +302,10 @@ humanize/
 ## 自訂
 
 ### 暫時停用自動觸發
-編輯 `~/.claude/CLAUDE.md`，把 `humanize-skill-auto:start` 到 `:end` 之間的區塊註解掉或刪除。
+Claude Code 編輯 `~/.claude/CLAUDE.md`；Codex 編輯 `${CODEX_HOME:-~/.codex}/AGENTS.md`。把 `humanize-skill-auto:start` 到 `:end` 之間的區塊註解掉或刪除。
 
 ### 只啟用部分語境
-編輯 `~/.claude/skills/humanize/SKILL.md`，移除不想要的語境路由。但建議保留全部，Claude 會自己挑合適的。
+編輯安裝目錄中的 `skills/humanize/SKILL.md`，移除不想要的語境路由。但建議保留全部，agent 會自己挑合適的。
 
 ### 修改規則
 所有規則都是純 Markdown，直接編輯即可：

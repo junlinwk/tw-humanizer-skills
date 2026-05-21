@@ -25,6 +25,10 @@
 .EXAMPLE
     .\uninstall.ps1 -Silent
     No prompts.
+
+.EXAMPLE
+    .\uninstall.ps1 -Tool codex
+    Uninstall from OpenAI Codex.
 #>
 
 [CmdletBinding()]
@@ -55,7 +59,13 @@ function Get-ToolConfig {
             }
         }
         "codex" {
-            return @{ Supported = $false; Reason = "Codex 尚未支援，見 install.ps1" }
+            $codexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+            return @{
+                Supported = $true
+                SkillDir = Join-Path $codexRoot "skills\$SkillName"
+                InstructionFile = Join-Path $codexRoot "AGENTS.md"
+                RootDir = $codexRoot
+            }
         }
         "antigravity" {
             return @{ Supported = $false; Reason = "Antigravity 尚未支援，見 install.ps1" }
@@ -72,13 +82,14 @@ if (-not $config.Supported) {
 
 $SkillDir = $config.SkillDir
 $InstructionFile = $config.InstructionFile
+$RootDir = $config.RootDir
 
 Write-Host "═══ humanize skill uninstaller (Windows, tool=$Tool) ═══" -ForegroundColor Cyan
 Write-Host ""
 
 # ─── Step 1: 備份 notes.md（如指定）───────────────────
 if ($KeepNotes -and (Test-Path $SkillDir)) {
-    $BackupDir = Join-Path $env:USERPROFILE ".claude\humanize-notes-backup-$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+    $BackupDir = Join-Path $RootDir "humanize-notes-backup-$(Get-Date -Format 'yyyyMMdd_HHmmss')"
     New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
     $contextsDir = Join-Path $SkillDir "contexts"
     if (Test-Path $contextsDir) {

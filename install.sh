@@ -3,12 +3,13 @@
 #
 # Currently supported tools:
 #   - claude-code (default, fully supported)
-#   - codex (not yet supported — see help)
+#   - codex (fully supported)
 #   - antigravity (not yet supported — see help)
 #
 # Usage:
-#   bash install.sh                   # interactive install for Claude Code
+#   bash install.sh                     # interactive install for Claude Code
 #   bash install.sh --tool=claude-code  # explicit tool selection
+#   bash install.sh --tool=codex        # install for OpenAI Codex
 #   bash install.sh --dev             # symlink mode (for skill development)
 #   bash install.sh --no-auto         # skip auto-trigger
 #   bash install.sh --silent          # no prompts, full install with defaults
@@ -29,6 +30,7 @@ SKILL_DIR=""
 INSTRUCTION_FILE=""
 ROOT_DIR=""
 SKILLS_DIR=""
+INVOCATION_HINT="/humanize"
 
 setup_tool_config() {
     case "$TOOL" in
@@ -37,24 +39,14 @@ setup_tool_config() {
             INSTRUCTION_FILE="${HOME}/.claude/CLAUDE.md"
             ROOT_DIR="${HOME}/.claude"
             SKILLS_DIR="${HOME}/.claude/skills"
+            INVOCATION_HINT="/humanize"
             ;;
         codex)
-            cat <<EOF >&2
-
-═══ Tool 'codex' 尚未支援 ═══
-
-Codex CLI 的具體路徑與 instruction loading 機制尚未確認。
-需要的資訊：
-  1. Codex 把 custom instructions / skills 放在哪個目錄？
-     （猜測：~/.codex/ 或 ~/.openai-codex/）
-  2. Codex 有沒有 CLAUDE.md 等價的「會在每輪自動載入的指令檔」？
-  3. 用戶層 vs 專案層的設定優先順序為何？
-
-如果你知道這些，請開 issue 或 PR 補充。
-目前可安裝的 tool: claude-code（預設，完整支援）
-改用: bash install.sh --tool=claude-code
-EOF
-            exit 2
+            ROOT_DIR="${CODEX_HOME:-${HOME}/.codex}"
+            SKILL_DIR="${ROOT_DIR}/skills/${SKILL_NAME}"
+            INSTRUCTION_FILE="${ROOT_DIR}/AGENTS.md"
+            SKILLS_DIR="${ROOT_DIR}/skills"
+            INVOCATION_HINT="\$humanize"
             ;;
         antigravity)
             cat <<EOF >&2
@@ -69,14 +61,14 @@ Google Antigravity IDE 的 skill / agent 設定機制尚未確認。
   3. 是否支援 markdown skill 格式，或需要特定格式？
 
 如果你知道這些，請開 issue 或 PR 補充。
-目前可安裝的 tool: claude-code（預設，完整支援）
-改用: bash install.sh --tool=claude-code
+目前可安裝的 tool: claude-code（預設，完整支援）、codex（完整支援）
+改用: bash install.sh --tool=claude-code 或 bash install.sh --tool=codex
 EOF
             exit 2
             ;;
         *)
             echo "Unknown tool: $TOOL" >&2
-            echo "Supported: claude-code, codex (stub), antigravity (stub)" >&2
+            echo "Supported: claude-code, codex, antigravity (stub)" >&2
             exit 1
             ;;
     esac
@@ -84,7 +76,7 @@ EOF
 
 build_auto_trigger_block() {
 AUTO_TRIGGER_BLOCK="${AUTO_TRIGGER_MARKER_START}
-## /humanize skill 自動套用
+## humanize skill 自動套用
 
 ### 最高原則（凌駕一切）
 **不知道直接說 + 必要時向用戶提問。** 不要編造、不要用模糊語言掩護無知、不要把不確定的事實寫得像確定的事實。假裝知道比 AI 味更糟。詳見 \`${SKILL_DIR}/core/universal.md\` 第 0 條。
@@ -132,7 +124,7 @@ humanize skill installer
 Usage:
   bash install.sh                       interactive install (Claude Code, copy mode)
   bash install.sh --tool=claude-code    explicit tool selection (default)
-  bash install.sh --tool=codex          (stub — not yet supported)
+  bash install.sh --tool=codex          install for OpenAI Codex
   bash install.sh --tool=antigravity    (stub — not yet supported)
   bash install.sh --dev                 symlink mode (for skill development)
   bash install.sh --no-auto             skip auto-trigger setup
@@ -141,7 +133,7 @@ Usage:
 
 Supported tools:
   - claude-code: fully supported
-  - codex: stub (needs path info — open an issue if you know the structure)
+  - codex: fully supported
   - antigravity: stub (needs path info — open an issue if you know the structure)
 
 To uninstall later:
@@ -234,7 +226,7 @@ if [[ "$AUTO_TRIGGER" == "ask" ]]; then
     echo
     echo "  自動觸發 = 在 $INSTRUCTION_FILE 加一段指令，"
     echo "  讓 $TOOL 每次回應前自動讀 humanize skill 並套規則。"
-    echo "  好處：不用手動 /humanize"
+    echo "  好處：不用手動 ${INVOCATION_HINT}"
     echo "  缺點：每輪會多消耗少量 context tokens"
     echo
     read -p "  啟用自動觸發？ (Y/n) " auto_yn
@@ -260,7 +252,7 @@ if [[ "$AUTO_TRIGGER" == "yes" ]]; then
         echo "  ✓ 已加自動觸發到 $INSTRUCTION_FILE"
     fi
 else
-    echo "  ⊘ 跳過自動觸發。要用時需手動 /humanize"
+    echo "  ⊘ 跳過自動觸發。要用時需手動 ${INVOCATION_HINT}"
 fi
 
 # ─── 完成 ───────────────────────────────────────────
@@ -277,7 +269,7 @@ echo "  • 開新的 $TOOL 對話"
 if [[ "$AUTO_TRIGGER" == "yes" ]]; then
     echo "  • $TOOL 會自動套用 humanize skill（每輪偵測語境 + 紀錄）"
 else
-    echo "  • 在對話中輸入 /humanize 來啟用"
+    echo "  • 在對話中輸入 ${INVOCATION_HINT} 來啟用"
 fi
 echo
 echo "想移除：bash $REPO_DIR/uninstall.sh --tool=$TOOL"

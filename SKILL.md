@@ -1,6 +1,6 @@
 ---
 name: humanize
-description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋 9 大語境（閒聊、情緒、求助、討論、正式、親密、衝突、創作、教學），每個語境有差異化規則 + 子情境細分 + 用戶習慣記憶。Claude 專用調校，依真實人類互動樣本逆向歸納設計。
+description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋 9 大語境（閒聊、情緒、求助、討論、正式、親密、衝突、創作、教學），每個語境有差異化規則 + 子情境細分 + 用戶習慣記憶。適用於 Claude Code 與 OpenAI Codex，依真實人類互動樣本逆向歸納設計。
 ---
 
 # /humanize: 語境感知的去 AI 味回應 Skill
@@ -90,7 +90,7 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 長文輸出（5 正式 / 8 創作）後執行 `self-check.md`。
 短回應（1 閒聊 / 2 情緒 / 6 親密）可省略。
 
-這是 skill 的**預設品管層**：Claude 自己讀 lang_zh/en.md 的指紋清單，按 7 維度打分。**不需要外部工具、不需要任何安裝、不需要 GPU**。對絕大多數情境（包含 D / E / F preset 的日常寫作）都足夠。
+這是 skill 的**預設品管層**：AI agent 自己讀 lang_zh/en.md 的指紋清單，按 7 維度打分。**不需要外部工具、不需要任何安裝、不需要 GPU**。對絕大多數情境（包含 D / E / F preset 的日常寫作）都足夠。
 
 ### Step 8: 選用 — 機器評分（**Layer 2**，重度，opt-in only）
 
@@ -170,6 +170,8 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 ```
 tw-humanizer/
 ├── SKILL.md                          本檔（入口）
+├── agents/
+│   └── openai.yaml                   Codex UI metadata
 ├── core/
 │   ├── universal.md                  通用核心規則（English，語言中立）
 │   ├── lang_zh.md                    中文特定 AI 指紋 patterns

@@ -4,6 +4,7 @@
 # Usage:
 #   bash uninstall.sh                      interactive uninstall (Claude Code)
 #   bash uninstall.sh --tool=claude-code   explicit tool selection
+#   bash uninstall.sh --tool=codex         uninstall from OpenAI Codex
 #   bash uninstall.sh --silent             no prompts
 #   bash uninstall.sh --keep-notes         preserve user's notes.md
 
@@ -19,8 +20,14 @@ setup_tool_config() {
         claude-code)
             SKILL_DIR="${HOME}/.claude/skills/${SKILL_NAME}"
             INSTRUCTION_FILE="${HOME}/.claude/CLAUDE.md"
+            ROOT_DIR="${HOME}/.claude"
             ;;
-        codex|antigravity)
+        codex)
+            ROOT_DIR="${CODEX_HOME:-${HOME}/.codex}"
+            SKILL_DIR="${ROOT_DIR}/skills/${SKILL_NAME}"
+            INSTRUCTION_FILE="${ROOT_DIR}/AGENTS.md"
+            ;;
+        antigravity)
             echo "Tool '$TOOL' 尚未支援。見 install.sh --help" >&2
             exit 2
             ;;
@@ -47,10 +54,11 @@ humanize skill uninstaller
 Usage:
   bash uninstall.sh                       interactive uninstall (Claude Code)
   bash uninstall.sh --tool=claude-code    explicit tool selection
+  bash uninstall.sh --tool=codex          uninstall from OpenAI Codex
   bash uninstall.sh --silent              no prompts
   bash uninstall.sh --keep-notes          preserve user's notes.md (back up before removing)
 
-Supported tools: claude-code (other tools are stubs in install.sh)
+Supported tools: claude-code, codex (antigravity is a stub in install.sh)
 
 What gets removed:
   - Skill folder under the tool's skills directory
@@ -70,7 +78,7 @@ echo
 
 # ─── Step 1: 備份 notes.md（如指定）───────────────────
 if [[ "$KEEP_NOTES" == "yes" && -d "$SKILL_DIR" ]]; then
-    BACKUP_DIR="${HOME}/.claude/humanize-notes-backup-$(date +%Y%m%d_%H%M%S)"
+    BACKUP_DIR="${ROOT_DIR}/humanize-notes-backup-$(date +%Y%m%d_%H%M%S)"
     mkdir -p "$BACKUP_DIR"
     if [[ -d "$SKILL_DIR/contexts" ]]; then
         for ctx_dir in "$SKILL_DIR/contexts"/*/; do

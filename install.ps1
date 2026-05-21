@@ -8,7 +8,7 @@
 
     Currently supported tools:
       - claude-code (default, fully supported)
-      - codex (not yet supported — see help)
+      - codex (fully supported)
       - antigravity (not yet supported — see help)
 
 .PARAMETER Tool
@@ -46,7 +46,7 @@
 
 .EXAMPLE
     .\install.ps1 -Tool codex
-    (Not yet supported, shows guidance.)
+    Install for OpenAI Codex.
 #>
 
 [CmdletBinding()]
@@ -85,21 +85,18 @@ function Get-ToolConfig {
                 InstructionFile = Join-Path $env:USERPROFILE ".claude\CLAUDE.md"
                 RootDir = Join-Path $env:USERPROFILE ".claude"
                 SkillsDir = Join-Path $env:USERPROFILE ".claude\skills"
+                InvocationHint = "/humanize"
             }
         }
         "codex" {
+            $codexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
             return @{
-                Supported = $false
-                Reason = @"
-Codex CLI 的具體路徑與 instruction loading 機制尚未確認。
-需要的資訊：
-  1. Codex 把 custom instructions / skills 放在哪個目錄？
-     （猜測：~/.codex/ 或 ~/.openai-codex/ 或 %APPDATA%\Codex\）
-  2. Codex 有沒有 CLAUDE.md 等價的「會在每輪自動載入的指令檔」？
-  3. 用戶層 vs 專案層的設定優先順序為何？
-
-如果你知道這些，請開 issue 或 PR 補充 `installers/codex.ps1` 與 `installers/codex.sh`。
-"@
+                Supported = $true
+                SkillDir = Join-Path $codexRoot "skills\$SkillName"
+                InstructionFile = Join-Path $codexRoot "AGENTS.md"
+                RootDir = $codexRoot
+                SkillsDir = Join-Path $codexRoot "skills"
+                InvocationHint = '$humanize'
             }
         }
         "antigravity" {
@@ -134,8 +131,9 @@ if (-not $config.Supported) {
     Write-Host ""
     Write-Host "目前可安裝的 tool："
     Write-Host "  - claude-code（預設，完整支援）"
+    Write-Host "  - codex（完整支援）"
     Write-Host ""
-    Write-Host "改用：.\install.ps1 -Tool claude-code"
+    Write-Host "改用：.\install.ps1 -Tool claude-code 或 .\install.ps1 -Tool codex"
     exit 2
 }
 
@@ -143,11 +141,12 @@ $SkillDir = $config.SkillDir
 $InstructionFile = $config.InstructionFile
 $RootDir = $config.RootDir
 $SkillsDir = $config.SkillsDir
+$InvocationHint = $config.InvocationHint
 
 # ─── 自動觸發區塊內容（依當前 tool 動態組裝路徑）──────
 $AutoTriggerBlock = @"
 $AutoTriggerMarkerStart
-## /humanize skill 自動套用
+## humanize skill 自動套用
 
 ### 最高原則（凌駕一切）
 **不知道直接說 + 必要時向用戶提問。** 不要編造、不要用模糊語言掩護無知、不要把不確定的事實寫得像確定的事實。假裝知道比 AI 味更糟。詳見 `$SkillDir\core\universal.md` 第 0 條。
@@ -272,7 +271,7 @@ if ($AutoTrigger -eq "ask") {
     Write-Host ""
     Write-Host "  自動觸發 = 在 $InstructionFile 加一段指令，"
     Write-Host "  讓 $Tool 每次回應前自動讀 humanize skill 並套規則。"
-    Write-Host "  好處：不用手動 /humanize"
+    Write-Host "  好處：不用手動 $InvocationHint"
     Write-Host "  缺點：每輪會多消耗少量 context tokens"
     Write-Host ""
     $autoYn = Read-Host "  啟用自動觸發？(Y/n)"
@@ -300,7 +299,7 @@ if ($AutoTrigger -eq "yes") {
         Write-Host "  ✓ 已加自動觸發到 $InstructionFile" -ForegroundColor Green
     }
 } else {
-    Write-Host "  ⊘ 跳過自動觸發。要用時需手動 /humanize" -ForegroundColor Gray
+    Write-Host "  ⊘ 跳過自動觸發。要用時需手動 $InvocationHint" -ForegroundColor Gray
 }
 
 # ─── 完成 ───────────────────────────────────────────
@@ -317,7 +316,7 @@ Write-Host "  • 開新的 $Tool 對話"
 if ($AutoTrigger -eq "yes") {
     Write-Host "  • $Tool 會自動套用 humanize skill"
 } else {
-    Write-Host "  • 在對話中輸入 /humanize 來啟用"
+    Write-Host "  • 在對話中輸入 $InvocationHint 來啟用"
 }
 Write-Host ""
 Write-Host "想移除: powershell -ExecutionPolicy Bypass -File $RepoDir\uninstall.ps1 -Tool $Tool"

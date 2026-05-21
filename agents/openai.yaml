@@ -1,0 +1,7 @@
+interface:
+  display_name: "Humanize"
+  short_description: "Context-aware Chinese and English human tone"
+  default_prompt: "Use $humanize to rewrite this response so it fits the conversational context and sounds natural."
+
+policy:
+  allow_implicit_invocation: true
