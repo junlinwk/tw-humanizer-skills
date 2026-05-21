@@ -253,10 +253,22 @@ If a piece of casual/blog English ≥ 50 words has **zero** contractions, that's
 - **Student handwritten (C)**: contractions natural, use them
 - **Formal student report (D)**: contractions OK in reflection sections
 - **Formal application / letter (E)**: contractions avoided (formal register)
-- **Academic (F)**: contractions avoided
+- **Academic (F)**: **2-3 contractions allowed** in conversational frames ("we've shown", "here's the core idea") — avoiding them entirely scores AI-like
 
 ### Why this matters
 AI writes "I do not think" where a human would write "I don't think". The expanded form is grammatically correct but reads robotic in casual contexts.
+
+### Validated formula for English academic / formal under 10% AI score
+External detection tools flag the *complete absence* of contractions as AI-like even in academic text. Validated formula:
+
+1. **2-3 contractions per piece** — in discussion / framing sentences ("we've", "it's", "we'll", "doesn't", "here's"). Avoid in formal claims / definitions.
+2. **1 opinion marker** — "Honestly,...", "I think...", "In my opinion...", "My take is..." (humans embed at least one personal stance even in academic writing).
+3. **Em-dashes ≤ 1** — heavy em-dash use is a Claude-specific fingerprint.
+4. **Citations + numbers + specific names** — already required by `core/universal.md` §6.
+
+Tested combinations achieving < 10% AI score on humanize-cli:
+- Transformer attention example: 7%
+- NP-completeness example: 5%
 
 ---
 

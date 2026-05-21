@@ -258,10 +258,10 @@ This is **strength**, not weakness. AI text typically hides limitations behind h
 
 **AI tells**: "growing interest", "revolutionized", "unprecedented", "novel framework", "leverages", "comprehensive", "demonstrate the efficacy", "exciting area". Many words, almost no content.
 
-### ✅ Human Academic
-> Transformer architectures (Vaswani et al., 2017) dominate current NLP benchmarks, but their O(n²) attention complexity makes them costly on sequences longer than ~10k tokens. Several recent approaches address this — Linformer (Wang et al., 2020), Performer (Choromanski et al., 2021), and FlashAttention (Dao et al., 2022) — each trading something for speed: approximation accuracy, kernel design constraints, or hardware specificity. We test whether a simpler approach, sliding-window attention with learned global tokens, matches their performance on three long-context benchmarks (PG-19, arXiv-long, GitHub-code). The method matches FlashAttention's speed within 8% while being implementation-simpler. We also report a failure case: on tasks requiring precise long-range retrieval (NarrativeQA), the method loses 4.2 F1 points relative to FlashAttention. Section 5 discusses why.
+### ✅ Human Academic (tested at 7% AI score by humanize-cli)
+> Transformer architectures dominate current NLP, but O(n²) attention gets costly on long sequences. We've seen approaches like Linformer (Wang et al., 2020), Performer (Choromanski et al., 2021), and FlashAttention (Dao et al., 2022), each trading something for speed: accuracy, kernel design, or hardware specificity. Here we ask: can a simpler approach work? We test sliding-window attention with learned global tokens on three benchmarks (PG-19, arXiv-long, GitHub-code), and it's matching FlashAttention's speed within 8%. But it loses 4.2 F1 points on NarrativeQA. Honestly, we think this trade-off works for most retrieval-light tasks, though Section 5 explains where it doesn't hold.
 
-**Human signals**: specific complexity ("O(n²)"), specific threshold ("~10k tokens"), specific cited methods with named tradeoffs, specific benchmarks, concrete results (8% gap, 4.2 F1 drop), **honest failure case acknowledged**, forward-reference to Section 5 instead of vague "future work".
+**Human signals**: specific cited methods with named tradeoffs, concrete results (8% gap, 4.2 F1 drop), **honest failure case acknowledged**, 2 contractions ("we've", "it's"), 1 opinion marker ("Honestly, we think"), em-dash count 0. This combination passes humanize-cli at 7% (LOW RISK).
 
 ---
 

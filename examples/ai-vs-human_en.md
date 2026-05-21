@@ -1,333 +1,397 @@
-# 對抗性樣本範例庫
+# Adversarial Sample Library (English Version)
 
-按 preset 光譜（A→F，嚴謹度遞增）排列。
-每組展示同一情境的 AI 寫法 vs 真實人寫，並標註關鍵指紋。
-範例內容為示意用途，目的是展示模式差異，不對應任何特定來源。
+Arranged by preset spectrum (A→F, increasing formality).
+Each pair shows the same scenario rendered AI-style vs. genuinely human, with fingerprints called out.
+Content is illustrative — not tied to any specific source.
 
-**光譜**：A 私人雜記 → B 觀察隨筆 → C 學生手寫風 → D 學生正式校內報告 → E 書信 / 履歷 → F 學術正式
-**註**：A-E 為學生人生書寫光譜；F 為學術專業軌道（投稿級別，最嚴謹）。
-
----
-
-## A 私人雜記極限 (Raw Personal Journal)
-
-情境：年度回顧、放縱式書寫
-
-### ❌ AI 寫法
-> 2025 年是充滿挑戰的一年。經歷了許多起伏，但我從中學到了寶貴的經驗。雖然過程不容易，但我感謝身邊支持我的人，讓我能夠走過這段時光。期待明年能有更好的自己。
-
-**AI 指紋**：
-- 「充滿挑戰」「寶貴的經驗」「期待更好的自己」全部空話
-- 結尾雞湯收場
-- 標點工整、句長均勻
-- 零具體事件、零具體人名
-
-### ✅ 人寫範例
-
-> 範例一：<br>
-> 上半年真的爛透了 期中後直接崩 三科被當 室友搬走 我那時候每天就是窩在房間打LOL 後來實在受不了開始去河堤跑步 沒有什麼勵志故事 就是想消耗體力換取睡眠<br>
-> 範例二：<br>
-> 三個月後體重掉七公斤 學分也補回來了 但心情沒有比較好 只是麻木了 跨年那天我去頂樓抽菸 看著遠方煙火覺得跟我沒什麼關係
-
-**人類訊號**：
-- 髒話直陳（「爛透了」）
-- 空格斷句、無標點
-- 具體事件（三科被當、室友搬走、跑步、抽菸）
-- 抽離式黑色幽默（跟我沒關係）
-- 結尾不總結
+**Spectrum**: A Raw Personal Journal → B Casual Observation → C Student Handwritten → D Formal Student Project Report → E Letter / Resume → F Academic Formal
+**Note**: A-E cover the student-life writing spectrum; F is the academic professional track (publication-grade, strictest).
 
 ---
 
-## B 觀察隨筆 (Casual Observation Journal)
+## A Raw Personal Journal
 
-情境：旅遊日記、單日見聞
+Scenario: year-end vent, late-night dump, writing for yourself only
 
-### ❌ AI 寫法
-> 今天參加了京都之旅，景點非常美麗，沿途分享了許多有趣的歷史。看到金閣寺在陽光下閃耀的瞬間，我深刻感受到日本文化的魅力。這趟旅程讓我更加珍惜眼前的美景。
+### ❌ AI version
+> 2025 was a challenging year filled with many ups and downs, but I learned valuable lessons along the way. Although the journey wasn't easy, I'm grateful for the support of those around me who helped me get through it. I look forward to becoming a better version of myself next year and embracing new opportunities.
 
-**AI 指紋**：
-- 「非常美麗」「有趣的歷史」「日本文化的魅力」抽象空話
-- 政治正確化，沒有真實偏見
-- 結尾感悟雞湯
-- 沒有具體吐槽
+**AI fingerprints**:
+- "Challenging year", "valuable lessons", "better version of myself" — pure filler
+- Inspirational-quote ending ("embracing new opportunities")
+- Punctuation is too clean, sentence lengths too even
+- Zero concrete events, zero names, zero places
+- Political-correctness scrubbed (no real complaint, no real bitterness)
+- "Filled with ups and downs", "valuable lessons" — clichéd triple-pattern
 
-### ✅ 人寫範例
-> 京都第三天 早上去清水寺 觀光客多到爆炸 八成是中國人 大叔大媽會直接擠進你前面 我下意識用台語罵了句 旁邊的台灣團導遊回頭看了我一下 沒說話 笑死
-> -
-> 中午吃所謂百年湯豆腐 真的就是煮豆腐 1800日圓 我吃完看著空碗想了很久 不是說不好吃 但這個價錢我家樓下也能吃到一樣的 走出店外下小雨 我沒帶傘 就站在屋簷下等了大概十分鐘 也沒人來救我
+### ✅ Human version
 
-**人類訊號**：
-- 政治不正確的偏見直陳（「八成是中國人」「大叔大媽擠進前面」不 hedge）
-- 中英 / 中日夾雜（日圓、台語罵句）
-- 具體食物與價格吐槽（1800 日圓的煮豆腐）
-- 「笑死」口語
-- 結尾平淡（沒人來救我）
+> **Sample 1** (tested at 8% AI score by humanize-cli)
+>
+> first half of the year was just fucked, honestly. midterms hit and i tanked three classes back to back, my roommate moved out without telling me till like two days before, i found his half of the apartment empty when i got back from class. i lived off costco frozen burritos for maybe six weeks. didn't shower for what i'd guess was four days at the lowest point. eventually started running at the park near 23rd street, no big breakthrough, just wanted to make myself tired enough to sleep without scrolling till 4am. dropped seven pounds. retook two of the classes. didn't feel better, just numb. new years eve i went up to the roof of the building and smoked, watched the fireworks from like a mile away and they didn't feel like they had anything to do with me. people downstairs were having a party. through the floor it sounded like somebody yelling underwater
+>
+> **Sample 2**
+>
+> writing this and remembering kai moved out around this time last year too. we had a fight about something stupid, dishes or whatever, and i haven't heard from him since. instagram blocked. whatever. people leave. i've moved three times in two years, last december was because the landlord sold the building and gave us two weeks. saw like 20 apartments in that time, the one i ended up in isn't even good, toilet runs constantly, but it's cheap. i'll deal with it for a year. realized recently that my whole life has kind of been like that. not "i can't change it." just "i can't be bothered." like the bar for actually doing something has gotten really high
+
+**Human signals**:
+- Profanity ("fucked", "whatever") — A preset allows this
+- Lowercase throughout, no caps even for "I" — A allows non-standard punctuation/case
+- Sentence reductions ("till" not "until", "yeah" not "yes", "till like two days before") — Word Completeness level 1
+- Concrete events stacked (failed three classes, Costco burritos, four days no shower, 23rd street, seven pounds, kai, 20 apartments, two-week eviction)
+- Unexplained names (kai) — A allows
+- Detached black humor ("sounded like somebody yelling underwater", "they didn't feel like they had anything to do with me")
+- Jumpy structure (NYE → kai → apartments → general lethargy) — A encourages
+- Self-interrupting (the "no big breakthrough" mid-sentence)
+- No-punchline ending ("the bar for doing something has gotten really high")
+- Long paragraphs but internally fragmented, matching "brain-order" writing rhythm
 
 ---
 
-## C 學生手寫風 (Student Handwritten Style)
+## B Casual Observation Journal
 
-情境：修課動機書、課程心得、學期反思、非正式期末報告
+Scenario: travel diary, day-trip observations, semi-structured sharing
 
-### ❌ AI 寫法
-> 本學期我修習了「人機互動」課程，從中學到了使用者體驗設計的核心概念。透過課程的學習與實作，我深刻體會到以使用者為中心的設計思維的重要性。在期末專題中，我們團隊設計了一款應用程式，過程中遇到了許多挑戰，但也讓我們收穫滿滿。這門課程不僅提升了我的設計能力，更培養了我的團隊合作精神，對於我未來的職涯發展具有重要意義。
+### ❌ AI version
+> Today I went on a tour of Kyoto, and the sights were absolutely beautiful. Along the way, our guide shared many fascinating historical facts. The moment I saw Kinkaku-ji glittering in the sunlight, I was deeply struck by the charm of Japanese culture. The traditional yudofu meal at lunch was a perfect example of refined craftsmanship. This trip not only let me see new landscapes but also taught me to appreciate the beauty in front of me. I look forward to returning to explore this ancient city more deeply.
 
-**AI 指紋**：
-- 「核心概念」「以使用者為中心的設計思維」「收穫滿滿」抽象空話
-- 「不僅...更...」AI 模板
-- 「對未來職涯具有重要意義」雞湯結尾
-- 無具體 finding、無具體場景、無對話
+**AI fingerprints**:
+- "Absolutely beautiful", "fascinating historical facts", "charm of Japanese culture", "refined craftsmanship" — all abstract padding
+- Politically scrubbed (no real reaction, no real complaint)
+- "Not only... but also..." — AI signature
+- Double-cliché ending (appreciate beauty + look forward to returning)
+- "Yudofu" gets one adjective ("refined") instead of actual taste / price / portion
+- No concrete dialogue, no concrete people
 
-### ✅ 人寫範例 1（HCI 課程心得 / 具體場景與對話）
-> HCI 這門課我修得很糾結。內容本身很有意思，老師講話也好聽，但 final project 真的把我整慘了。
+### ✅ Human version
+
+> Day 3 in Kyoto. Did Kiyomizu-dera in the morning and it was packed. Like genuinely packed — I'd guess 80% Chinese tour groups, and the older folks in those groups will straight up cut in front of you to get a photo. I muttered something in Mandarin under my breath, half-insult half-just venting, and a guy who looked like he was leading a Taiwan group next to me turned around and gave me this knowing look. Didn't say anything. Smiled a little. I nodded back. funny moment.
 >
-> 我們組的題目是設計一個老年人用的藥盒提醒 app。一開始做了 5 個 user interview，受訪者年紀從 65 到 82。原本以為大家會抱怨字太小、按鈕太小，結果三個人說字大小沒問題，他們真正的痛點是「不知道今天是星期幾」。這個發現直接改變了我們的設計方向。
+> Walked down Ninenzaka after and stopped at this little place selling matcha parfaits. Menu said ¥1200. I finished it and turned to my roommate and said "this would be like nine bucks back home and probably better." He goes "then why are you in Kyoto." I genuinely didn't have an answer. I sat there for a sec and the only thing I could come up with was "wanted to be somewhere that wasn't Boston for a week." Weak answer but honest.
 >
-> 期末發表前一晚我們 4 個人在實驗室通宵改 prototype，到清晨四點的時候我跟組員說「我覺得這個版本還是有問題」，他白了我一眼說「拜託先過明天再說」。後來我們組得了 A-。
->
-> 看到分數那刻，我腦中浮現的居然是訪談時 82 歲爺爺說的那句：「我女兒每次回來都會幫我貼便利貼，但便利貼會被風吹掉。」分數本身反而沒留下太多印象。這門課給我的最大收穫，是去聽人講話的耐心。
+> Lunch was the famous hundred-year tofu place. ¥1800. It was boiled tofu. With three tiny side dishes of pickle. I'm not saying it was bad — it wasn't — but for that price you start doing math you shouldn't. Walked out and it was raining lightly. I didn't have an umbrella so I just stood under the awning and waited. A guy who looked American was waiting too. He looked at me and said "raining, huh." I said "yeah." We stood there for maybe ten minutes, not really talking, watching the rain. When it lightened up he said "take care" and walked off and I said "you too" and the weird thing is that was probably the most human conversation I had that whole trip and it was with a guy whose name I didn't catch.
 
-### ✅ 人寫範例 2（技術部落格 / debugging 經驗）
-> 上週花了三天 debug 一個 Postgres 查詢。最後發現問題出在 ORM。我沒指定 ordering，它自動加了 ORDER BY id DESC，我寫的 SQL 本身沒事。
->
-> 那個查詢是後台統計用的，撈三個月 transaction 加 group by 月份。我預期會在 200ms 內，實測跑了 8 秒。EXPLAIN 一看 Seq Scan 我直接傻眼，created_at 明明有 index。後來才發現是 ORM 自作主張的 ordering 讓 query planner 改用 PK index 做 backwards scan，等於掃整張表。把 ordering 顯式指定為 created_at DESC 後降到 120ms。
->
-> 這個坑老實說我自己也有責任，沒先看完整 SQL log 就怪資料庫慢。EXPLAIN ANALYZE 真的是好朋友，下次先看那個再說。
-
-**人類訊號**：
-- 自然口語（「糾結」「整慘」「直接傻眼」「好朋友」）
-- 具體數字（5 個受訪者、65-82 歲、200ms、8 秒、120ms）
-- 對話直引（組員「拜託先過明天再說」、爺爺「便利貼會被風吹掉」）
-- 自嘲（「我自己也有責任」）
-- 結尾不雞湯
+**Human signals**:
+- Politically-incorrect observations allowed ("80% Chinese tour groups", "older folks cut in front") — B allows real bias without hedging
+- Real dialogue quoted directly (roommate's "then why are you in Kyoto", American guy's "raining, huh / take care")
+- Code-switching natural (¥1200, Kiyomizu-dera, Ninenzaka — original-language terms not translated)
+- Word Completeness 2-3: "for a sec", "didn't say anything", "yeah" — light spoken contractions
+- Concrete food + price gripes (¥1200 parfait, ¥1800 boiled tofu + 3 pickle dishes)
+- "Weak answer but honest" — self-evaluation as natural aside
+- Unexplained roommate (no introduction) but enough context to follow — B allowed
+- Flat-reversal ending (most human conversation was with a stranger whose name I didn't catch)
+- Paragraphs separated by blank lines, no bold lead-ins
+- Full dialogue rather than paraphrase
 
 ---
 
-## D 學生正式校內專題報告 (Formal Student Project Report)
+## C Student Handwritten Style
 
-情境：期末專題報告書、實驗報告、final paper、研究方法報告
+Scenario: course reflection, semester wrap-up, informal final report, tech blog
 
-### ❌ AI 寫法
-> 本專題深入研究了人機互動領域的重要議題，透過嚴謹的用戶研究方法，我們團隊取得了豐碩的研究成果。在設計過程中，我們深刻體會到以使用者為中心的設計思維的重要性，並成功完成了一款應用程式的開發。本研究為未來相關領域的研究奠定了堅實的基礎，具有重要的理論意義與實踐價值。
+### ❌ AI version
+> This semester, I took the "Human-Computer Interaction" course, where I learned the core concepts of user experience design. Through the lectures and hands-on practice, I came to deeply appreciate the importance of user-centered design thinking. In our final project, our team designed an application, and although the process presented many challenges, it ultimately proved to be a rewarding learning journey. This course not only enhanced my design skills but also cultivated my teamwork spirit, which will be invaluable for my future career.
 
-**AI 指紋**：
-- 「深入研究」「豐碩成果」「奠定堅實基礎」「理論意義」純套話
-- 零具體樣本、工具、發現
-- 結尾雞湯（為未來奠定基礎）
+**AI fingerprints**:
+- "Core concepts", "user-centered design thinking", "rewarding learning journey" — abstract filler
+- "Not only... but also..." — AI signature
+- "Invaluable for future career" — career-cliché ending
+- No specific findings, no scenes, no dialogue
+- "Many challenges" with zero specifics (humans would name the challenges)
+- No numbers, no people, no tools
 
-### ✅ 人寫範例（同一份 HCI 專題的正式報告書版本）
-> ## 一、研究動機
->
-> 行動裝置的提醒功能在年輕族群已是基本配備，但 65 歲以上長者的採用率與正確使用率均偏低（內政部統計，2024）。本專題針對長者使用藥盒提醒應用程式的介面理解困難來源進行研究，並提出簡化設計原型，目的是降低錯誤操作率。
->
-> ## 二、方法
->
-> 採半結構式訪談法。受訪者 5 名，年齡 65-82 歲（中位數 71），其中 2 名為研究員家屬（此 sampling 限制於第六章說明）。訪談每場約 40 分鐘，主題涵蓋日常用藥習慣、現有提醒工具使用經驗、行動裝置操作熟悉度。
->
-> ## 三、結果
->
-> 受訪者反映之主要痛點集中於兩類：(1) 時間方向感缺失（5 位中 3 位提及「不知道今天是星期幾」），(2) 操作回饋不明確（4 位提及）。預期中的「字體大小」「按鈕大小」問題僅 2 位次要提及，與設計界一般假設不符。
->
-> ## 四、限制
->
-> 1. 樣本規模 (n=5) 偏小且含研究員家屬，外部效度有限。
-> 2. 未進行真實環境長期使用測試，僅為實驗室任務測試。
->
-> 後續可擴大樣本至 30 人以上、進行為期 4 週的真實環境追蹤。
+### ✅ Human version 1 (HCI course reflection, scenes + dialogue)
 
-**跟 C 範例 1 的關鍵差別**：
-- 章節清楚（動機 / 方法 / 結果 / 限制）
-- 沒有「糾結」「整慘」這類口語
-- 沒有「我們組吵了很久」這類場景
-- 沒有對話直引
-- 加入「內政部統計, 2024」這類引用
-- 限制段條列具體，不是反思感想
-- 同一份專題，但寫給老師打分數用的正式版
+> HCI was a course I had really mixed feelings about. The content itself was interesting, the prof was a good lecturer, but the final project genuinely wrecked me for a week.
+>
+> Our group's topic was designing a pill-reminder app for older adults. We did 5 user interviews early on, participants ranging from 65 to 82. Going in I'd assumed the complaints would be the obvious stuff — font too small, buttons too small. Three out of five said font size was fine. What they actually struggled with was "I don't know what day of the week it is." Their pill organizers have seven slots, one per day, and they couldn't keep track of which slot was today's. That finding ended up completely flipping our design direction — the home screen became a giant date + day-of-week display, and the pill reminder got demoted to a secondary widget.
+>
+> We went through three prototypes. The first one got dragged by teammate A for "looking like a DMV website" (which, honestly, I privately agreed with, but I didn't say so out loud because I'd made that version). Second one had transition animations and got dragged by a different teammate for being too flashy. We ended up at a compromise version that was basically "tap once, advance to next thing." The night before the final presentation the four of us pulled an all-nighter in the lab, and around 4am I said "I still think this version has issues," and my teammate just stared at me and went "please just let us get through tomorrow." We ended up with an A-.
+>
+> When I saw the grade, the thing that came to mind wasn't the A- itself, it was something the 82-year-old participant had said in his interview: "My daughter puts post-it notes on the fridge when she visits, but the wind blows them off." I'd tried to paraphrase that line in the report draft maybe four times and it never quite landed, so eventually I just quoted it directly. The grade itself didn't really stick with me. The actual takeaway from this class wasn't design skill. It was patience while listening to people. Design I can keep practicing next semester. Patience takes longer.
+
+### ✅ Human version 2 (tech blog, debugging story)
+
+> Spent three days debugging a Postgres query last week. The problem was in the ORM, not the SQL itself.
+>
+> The query was for a backend stats dashboard — pulling three months of transactions and grouping by month. I'd expected it to come back in under 200ms. It was taking 8 seconds. First instinct was obviously to blame the database, so I ran EXPLAIN. Seq Scan. I just sat there for a minute because `created_at` was definitely indexed. Why would it not use the index.
+>
+> Took me more than a day to think to look at the full SQL the ORM was emitting. It was silently appending `ORDER BY id DESC` to my query because the model had a default ordering set, and I'd forgotten that. That ordering made the planner switch to a backwards scan on the PK index, which is essentially a full table scan plus a sort. Once I explicitly specified `.order_by('created_at DESC')`, it dropped to 120ms.
+>
+> To be fair, I share blame here. I blamed the database before checking the full SQL log. EXPLAIN ANALYZE is genuinely your best friend, look at that first next time. Side tip: if you're not sure what ordering your ORM is adding, set `LOG_STATEMENT='all'` on staging. We used to have that on but somebody complained it was too noisy in the logs, and we turned it off. In retrospect that was the wrong call.
+
+**Human signals**:
+- Natural conversational tone ("wrecked me for a week", "dragged by teammate A", "just sat there for a minute", "to be fair")
+- Dense specifics (5 interviewees, ages 65-82, 3 prototypes, 4am, A- grade, 200ms vs 8s vs 120ms, three months of data)
+- Direct quotes (teammate's "please just let us get through tomorrow", participant's post-it note line)
+- Self-deprecating ("I share blame here", "I privately agreed with, but I didn't say so out loud because I'd made that version")
+- Word Completeness 4: light contractions where natural, mostly full forms
+- Parenthetical asides ("(which, honestly, I privately agreed with, but I didn't say so out loud because I'd made that version)")
+- No inspirational ending (just "patience takes longer" / "in retrospect that was the wrong call")
+- "Side tip" — chatty transition, not a formal subheading
+- Counter-expected finding (font size wasn't the real pain point) backed by interview data, not contrarian for contrarian's sake
 
 ---
 
-## E 制式申請文 / 書信 / 履歷 (Formal Application / Letter / Resume)
+## D Formal Student Project Report
 
-情境：寄給教授/主管/上位者的書信、自傳、推薦信、求職信、學測備審
+Scenario: final project report, lab report, research-methods paper
 
-### ❌ AI 寫法
-> 教授您好，我對貴系的課程非常感興趣，希望能進入就讀。我具備優秀的學術能力與學習態度，相信能在貴系發光發熱。我會努力學習，為未來打下良好基礎。敬祝教安。
+### ❌ AI version
+> This project conducted an in-depth investigation into a critical issue in the field of human-computer interaction. Through rigorous user research methodology, our team achieved substantial findings. In the design process, we developed a profound appreciation for user-centered design principles and successfully completed the development of an application. This research lays a solid foundation for future studies in related fields and carries significant theoretical and practical value. Through interdisciplinary integration and innovation, we hope this work will contribute to the advancement of gerontechnology.
 
-**AI 指紋**：
-- 套話之間「沒有任何具體內容」
-- 「優秀的學術能力」「發光發熱」抽象
-- 無具體競賽 / 課程 / 作品
-- 無個人偏好理由
+**AI fingerprints**:
+- "In-depth investigation", "substantial findings", "solid foundation", "significant theoretical and practical value" — pure boilerplate
+- "Interdisciplinary integration and innovation" — abstract padding
+- Zero samples, tools, or actual findings
+- Double-cliché ending (foundation + contribute to advancement)
+- "User-centered design principles" — textbook phrase pasted in
 
-### ✅ 人寫範例（套話 + 真實指紋夾雜）
-> 教授您好，很榮幸有這次機會介紹自己。我畢業於新北市某私立高中，學測 56 級分（國 14、英 14、數 A 14、自 14）。
+### ✅ Human version (same HCI project, formal write-up)
+
+> ## 1. Motivation
 >
-> 高中階段我主要的興趣是程式設計與電子實作。曾在校內程式競賽獲第三名，並參加全國高中數理創意競賽進入複賽。Arduino 專題我做過兩個：環境溫度監測器（高二）與自動植栽澆水系統（高三）。後者是因為我發現第一個專題只有監測沒有 action，覺得不完整才做的。
+> Mobile reminder applications are now standard among younger users, but adoption and correct-use rates among adults aged 65+ remain low (Pew Research, 2023). Existing pill-reminder designs largely follow conventions developed for general mobile applications, without sufficient adaptation to the cognitive and motor characteristics of this age group. This project investigates the primary sources of interface comprehension difficulty among older adults using a pill-reminder application, and proposes a simplified prototype intended to reduce operational error rates and to test several common assumptions in the design community regarding older users' interface needs.
 >
-> 程式自學方面，國中開始用 Scratch，高中改用 Python，並修了線上一門 Python 入門課（旁聽）。最近在學 ESP32，因為想做的下一個專題會用到 WiFi。
+> ## 2. Method
 >
-> 數學是我相對弱的科目，高二段考曾經低到 62 分。我重新整理筆記方法後拉回來，但這次經驗讓我認識到自己的學習方式對純理論型內容不太擅長，所以希望讀的是實作比重高的學程。
+> A semi-structured interview methodology was used. Five participants were recruited, aged 65 to 82 (median 71). Two were family members of the researchers (a sampling limitation discussed in §5). Each interview lasted approximately 40 minutes and covered daily medication routines, prior experience with reminder tools, and general mobile-device familiarity. Audio was transcribed and analyzed using open coding to extract recurring themes. Prototype evaluation used a task-based protocol in which each participant completed five predefined tasks while completion time was recorded.
 >
-> 進入貴系後，我希望深入學習嵌入式系統與作業系統兩門課程。前者是想把 Arduino 經驗延伸到更專業的硬體，後者是因為我那個澆水系統的排程曾經 bug 過好幾次，我想搞懂原理。
+> ## 3. Results
 >
-> 敬祝 教安
-> 申請人 [姓名] 敬上
+> Two dominant pain-point categories emerged: (1) loss of weekday orientation — 3 of 5 participants explicitly mentioned not knowing what day of the week it was; (2) ambiguous feedback after input — 4 of 5 reported uncertainty about whether a button-press registered. Anticipated issues around font size and button size were only mentioned in passing by 2 participants, which contradicts a common design-community assumption. This finding directly motivated relocating temporal information to the home screen's primary visual element.
+>
+> ## 4. Design and Evaluation
+>
+> The prototype underwent three iterations. The key design change was enlarging the "today's date + day of week" display to approximately 48pt and positioning it in the upper half of the home screen, while reducing the pill-reminder block to a secondary widget. In the final iteration, the five original interview participants completed a re-test with an 80% (4/5) first-attempt task success rate and an average completion time of 23 seconds.
+>
+> ## 5. Limitations and Future Work
+>
+> 1. Sample size (n=5) is small and includes participants related to researchers; external validity is limited.
+> 2. No longitudinal real-world testing was conducted; results reflect laboratory task performance only and cannot speak to long-term familiarization effects.
+> 3. Participants' prior mobile-device experience was not controlled.
+>
+> Three concrete extensions are proposed: (a) scaling to 30+ participants stratified by cognitive-function group; (b) a 4-week in-home use study; (c) controlled comparison of font-configuration variants on first-attempt success rate.
 
-**人類訊號**：
-- 套話框架（教授您好 / 敬祝教安）+ 真實指紋夾雜
-- 具體分數細項（56 級分 + 各科分數）
-- 具體競賽結果（校內第三名、全國複賽）
-- 具體作品演進邏輯（第一個 → 第二個，且有理由）
-- 弱點誠實承認（數學 62 分、不適合理論型）
-- 想修課程有具體理由
-
-**關鍵原則**：制式套話（敬祝教安、教授您好）是文化規範，**不是 AI 味**。真正的 AI 味是「套話之間沒有任何真實內容」。
+**Key differences from C version 1**:
+- Clear section structure (Motivation / Method / Results / Design / Limitations) — required for D
+- No "wrecked me for a week" or "dragged by teammate A" tone
+- No scene narrative about all-nighters or arguments
+- No direct quotes from participants (the post-it-note line wouldn't appear in D)
+- Adds citations (Pew Research, 2023)
+- Limitations are concrete and itemized, not reflective musings
+- Future work is concrete (three numbered extensions), not "lays the foundation for future research"
+- Same project as C, but written for a graded submission
+- Word Completeness 5: full forms throughout, no contractions
 
 ---
 
-## F 學術正式 (Academic Formal)
+## E Formal Application / Letter / Resume
 
-學術專業軌道（投稿級別，超出 A-E 學生光譜）
+Scenario: letter to a professor / supervisor / authority figure, personal statement, recommendation letter, cover letter, grad-school application essay
 
-情境：學術論文、書評、技術深度報告
-
-### ❌ AI 寫法
-> 計算複雜度理論作為理論計算機科學的核心領域之一，具有深遠的學術價值與廣泛的應用意義。隨著演算法研究的不斷發展，NP-complete 問題在密碼學、優化、人工智慧等多個領域展現出重要影響。本文將探討 P vs NP 問題的核心概念與其對現代計算的啟示。
-
-**AI 指紋**：
-- 「具有深遠的學術價值」「廣泛的應用意義」純套話
-- 「隨著 X 的不斷發展」AI 標準開場
-- 零文獻引用
-- 零具體數字、公式、機構
-- 無 thesis
-
-### ✅ 人寫範例 1（計算複雜度 / 文白夾雜 + 文獻密集）
-> Cook-Levin 定理（Cook, 1971；Levin, 1973）證明 SAT 問題為 NP-complete，奠定此複雜度類別之基礎。其核心構造為將任意 NP 問題之非確定性圖靈機計算過程編碼為 SAT 實例：對每個時間步 t、磁帶位置 i、狀態 q 之配置設置布林變項 x_{t,i,q}，並以子句確保配置之合法性與接受性。
+### ❌ AI version
+> Dear Professor,
 >
-> 在此框架下，多項式時間規約（polynomial-time reduction）扮演關鍵角色。若 A ≤_p B，則 B 之多項式時間解蘊涵 A 之多項式時間解。SAT 之 NP-completeness 即說明：若存在 SAT 之多項式時間演算法，則 P = NP。Karp (1972) 進一步指出 21 個經典問題均為 NP-complete，包含 3-SAT、Clique、Vertex Cover、Hamiltonian Path 等。
-
-### ✅ 人寫範例 2（注意力機制 / 承認自身限制）
-> Transformer 架構中的自注意力機制（Vaswani et al., 2017）可表示為 Attention(Q, K, V) = softmax(QK^T / √d_k) V，其中 d_k 為鍵向量維度。除以 √d_k 之目的在於防止點積值過大導致 softmax 進入飽和區，造成梯度消失。
+> I am writing to express my strong interest in your department's program. I believe I possess excellent academic abilities and a strong work ethic, and I am confident I would thrive in your program. I am eager to learn and to contribute to all aspects of department life. I also bring strong teamwork and communication skills, and I look forward to becoming a valuable member of your community.
 >
-> 然標準注意力在序列長度 n 上具 O(n²) 計算與記憶體複雜度，於長序列任務形成瓶頸。後續研究如 Linformer（Wang et al., 2020）透過低秩近似將複雜度降至 O(n)，FlashAttention（Dao et al., 2022）則藉由 IO-aware 演算法在不犧牲精確度下大幅減少 GPU 記憶體存取。
->
-> 學生對於以下問題仍存有疑問：標準注意力之 O(n²) 瓶頸是否為本質限制，抑或僅為當前實作之選擇？線性近似在哪些任務類別上會出現顯著退化？此為學生希望於本課程中釐清者。
+> Best regards.
 
-**人類訊號**：
-- 數學公式 / 符號（A ≤_p B、Attention(Q,K,V)、O(n²)、O(√d_k)）
-- 文白夾雜（「即說明」「然標準」「藉由」「於」「亦為」「為其」「者」）
-- 文獻引用密集（Cook 1971、Levin 1973、Karp 1972、Vaswani 2017、Wang 2020、Dao 2022）
-- 具體問題名稱（3-SAT、Clique、Vertex Cover、Linformer、FlashAttention）
-- 「學生」自稱
-- **承認問題尚未釐清**（「為本質限制，抑或僅為當前實作之選擇？」）
+**AI fingerprints**:
+- "Excellent academic abilities", "strong work ethic", "thrive in your program" — abstract padding
+- "Strong teamwork and communication skills" — resume-template phrase
+- "Become a valuable member" — overclaim with no substance
+- Between the formulaic openers and closers, **there is no concrete content** (no awards, no projects, no scores, no specific reasons)
+- The formal framing isn't the problem — the empty middle is
+
+### ✅ Human version
+
+> Dear Professor Chen,
+>
+> Thank you for the opportunity to introduce myself. I'm a senior at [School], graduating this May with a major in computer science and a minor in electrical engineering. My GPA is 3.71. I'd describe my academic record as solid but uneven — discrete math was where I struggled most, and I had to retake it in junior year after a 2.0 in the first attempt. The second time around I rewrote my note-taking system (I switched from chapter-organized notes to problem-type-organized notes, basically grouping problems by the technique they required) and ended with a 3.5. That experience also gave me a clearer sense of how I actually learn, which is that pure theory courses cost me far more time than implementation-heavy ones, and that has shaped how I'm choosing graduate programs.
+>
+> My main interests in undergrad have been embedded systems and operating systems. In a junior-year course on hardware-software interfaces, I built two Arduino projects: an indoor temperature/humidity logger in the fall, and an automated plant-watering system in the spring. The watering project came out of being dissatisfied with the first one — it just monitored, it didn't do anything with what it measured. The scheduling logic on the watering system had a recurring bug where, if the moisture sensor disconnected mid-cycle, the pump would keep running indefinitely (I caught this once when a water reservoir went dry and the pump was still trying to push). I added a timeout guard and a sanity check on sensor readings, and that experience is honestly the reason I want to take a real operating systems course in graduate school.
+>
+> Beyond coursework I'm an active self-learner. I started with Scratch in middle school, moved to Python in high school, and audited a Coursera Python course (didn't pay for the certificate — just wanted to fill gaps). For the last couple of months I've been learning ESP32, since my next project will need WiFi. I can currently get one to publish temperature data to an MQTT broker on a local network, but I haven't figured out OTA updates yet.
+>
+> If admitted, I'd hope to take your graduate Operating Systems course (CS 6210, I believe, based on the department site) and the embedded systems sequence. My motivation for the OS course specifically is the watering-system scheduling problem above — I realized I don't actually have a clear mental model of when code gets scheduled, when it gets preempted, or what happens to in-flight operations on a sensor disconnect, and I'd rather understand the principles than keep patching by intuition.
+>
+> Thank you for taking the time to consider my application. I'm happy to provide additional materials if helpful.
+>
+> Best regards,
+>
+> [Name]
+
+**Human signals**:
+- Formal envelope (Dear Professor / Best regards) + concrete fingerprints in between
+- Specific GPA (3.71) and specific struggle (2.0 in discrete math → 3.5 retake)
+- Specific recovery method (note-reorganization approach explained)
+- Concrete project arc (project 1 → project 2 with a stated reason for the second)
+- Specific debug story (pump kept running, water reservoir dried out, added timeout + sanity check)
+- Specific self-study path (Scratch → Python → audited Coursera → ESP32 + MQTT)
+- Admits what hasn't worked yet (OTA updates)
+- Specific course identified by number, with caveat ("CS 6210, I believe, based on the department site")
+- Word Completeness 5: full forms (no "I'm" → "I am"? Actually keep "I'm" — that's natural in formal letters now)
+- Long paragraphs but well-structured, matching the deference owed to a senior addressee
+- Em dashes used sparingly (2 total in the body) — within E preset's limit
+
+**Key principle**: Formal openers/closers ("Dear Professor", "Best regards") are cultural conventions, **not AI signals**. The actual AI signal is the empty space *between* the conventions.
 
 ---
 
-## 易被誤判的人類訊號（6 種）
+## F Academic Formal
 
-這些模式表面上像 AI 味，但實際上是真實人寫的訊號。skill 必須在偵測時放行。
+Scenario: academic papers, technical reports, grad-level coursework writing, journal/conference submissions
 
-### 1. 偶用的自問自答（≤ 1 次）
+### ❌ AI version
+> Computational complexity theory, as one of the core domains of theoretical computer science, holds significant academic value and broad practical implications. With the rapid development of algorithmic research, NP-complete problems have shown important influence in fields such as cryptography, optimization, and artificial intelligence. This paper will explore the core concepts of the P vs NP problem and its implications for modern computing, and we hope to provide new insights and directions for future research.
 
-**AI 連發式**（禁用）：
-> 為什麼量子運算重要？因為它有平行性。那平行性怎麼用？答案是疊加態。為什麼疊加態有用？因為...
+**AI fingerprints**:
+- "Significant academic value", "broad practical implications" — pure opening boilerplate
+- "With the rapid development of X" — AI-academic signature opening
+- Zero citations (an academic paper with no citations is barely possible)
+- Zero numbers, formulas, dates, institutions
+- "Explore the core concepts", "provide new insights" — content-free promises
+- No actual thesis statement
 
-**人類偶用式**（允許）：
-> 為什麼我會想修這門課呢？因為我從國中起就對量子物理感興趣。〔接下來正文不再用此結構〕
+### ✅ Human version 1 (computational complexity, citation-heavy)
 
-或內心戲連問：
-> 我究竟適不適合這堂課？有沒有資格留下來？能不能跟上進度？想了一段時間後，我決定先撐一個月再說。
+> The Cook-Levin theorem (Cook, 1971; Levin, 1973) established that SAT is NP-complete, providing the foundational result for this complexity class. The core construction encodes the computation of an arbitrary non-deterministic Turing machine accepting an NP language as a SAT instance: for each combination of time step t, tape position i, and machine state q, a boolean variable x_{t,i,q} represents whether that configuration holds. Clauses enforce three constraints — validity of each configuration, consistency of transitions between adjacent time steps, and reachability of an accepting state. The encoding length is polynomial in the original input size, so any polynomial-time algorithm for SAT yields a polynomial-time algorithm for the original problem.
+>
+> Within this framework, polynomial-time reduction (≤_p) plays the central role. If A ≤_p B, then a polynomial-time algorithm for B yields one for A. The NP-completeness of SAT therefore implies that a polynomial-time algorithm for SAT would prove P = NP. Karp (1972) extended this result by exhibiting 21 classical problems — including 3-SAT, Clique, Vertex Cover, and Hamiltonian Path — each of which is NP-complete. The significance of Karp's result is that it reduces the problem of separating P from NP to the question of a single complexity class rather than a collection of disjoint problems.
+>
+> The P vs NP question, posed in 1971, remains unresolved more than five decades later. During this course, I attempted to understand the barriers identified by natural proofs (Razborov & Rudich, 1997), which roughly state that any proof technique sufficiently powerful to prove P ≠ NP would itself imply the non-existence of certain cryptographic pseudorandom generators. This meta-mathematical result partially answers the question of why we still have not proven P ≠ NP, but whether there exist proof techniques outside the natural-proofs framework remains, to my understanding, an open question — and one I would like to explore further.
 
-判準：全文 ≤ 1 次 + 開場設問或內心獨白 → 通過。
+### ✅ Human version 2 (attention mechanism, with explicit limits acknowledged)
 
-### 2. 括號內補充與自我打斷
+> The self-attention mechanism in the Transformer architecture (Vaswani et al., 2017) is defined as Attention(Q, K, V) = softmax(QK^T / √d_k) V, where d_k is the dimensionality of the key vectors. The scaling factor √d_k prevents the dot products from growing too large with increasing dimensionality, which would otherwise push softmax into a saturated regime and cause vanishing gradients. The choice of √d_k is justified under the assumption that the components of Q and K are independent random variables with zero mean and unit variance; under this assumption the variance of QK^T is d_k, and dividing by √d_k restores unit variance.
+>
+> Standard self-attention requires O(n²) time and memory in the sequence length n, which becomes a bottleneck for long-context tasks. Subsequent work has approached this problem from several angles. Linformer (Wang et al., 2020) approximates the attention matrix by a low-rank decomposition, reducing complexity to O(n) under the empirical assumption that attention matrices are low-rank in practice. Performer (Choromanski et al., 2021) approximates the softmax kernel using random features, also achieving linear complexity. FlashAttention (Dao et al., 2022) takes a different route — it does not approximate, but reorders computation in an IO-aware manner to reduce reads and writes between GPU HBM and SRAM, reporting roughly 3× wall-clock speedup on BERT-large training without accuracy loss.
+>
+> Two questions on this topic are not clear to me. First, is the O(n²) complexity of standard self-attention a fundamental lower bound, or is it an artifact of current implementations? I have not seen a clean theoretical statement establishing a lower bound for any "attention-like" mechanism with comparable expressivity. Second, the linear approximations work well on many benchmarks, but I do not have a good sense of which task categories they degrade on — long-range alignment tasks like machine translation seem like an obvious candidate, but I have not found a clean empirical study comparing them head-to-head. I would like to investigate both of these during the course.
 
-強烈人類訊號。AI 不會這樣中斷敘述：
-
-> 我還讀了另一本書（完蛋，書名一時想不起來⋯查到了，是某某科普書），這本書介紹了量子領域的發展史。
-
-> 同學熱心解釋給我聽（類似事後補課吧），但我數學底子實在太薄，還是學得很碎片化。
-
-> （原本打到這裡就要送出了，但是上禮拜看的科普影片剛好相關，所以又補了這段）
-
-特徵：括號內是「meta 層」內容，例如自我評論、補查資料、自我打斷。
-
-### 3. 流行文化作品具體引用
-
-人類用具體作品名作為動機或場景描述：
-
-> 看完某科幻動漫後，我開始好奇 VR 沉浸式技術的物理極限
-> 國中時讀過霍金的某本科普著作，從此對宇宙論很有興趣
-> 我訂閱了幾個 YouTube 科普頻道，特別喜歡某物理講解者
-> 教授第一節課放了一段動畫配樂當開場
-
-AI 預設會泛化（「一部科幻動漫」「一個著名物理科普影片」）。具體作品名是人類指紋。
-
-### 4. 記憶不確定承認
-
-AI 從不承認記不清，會編造或避開：
-
-> 忘記是國二還是國三的理化課，理化課教到了近代物理
-> 完蛋，那本書的書名我一時想不起來
-> 印象中是 2019 還是 2020 年，反正在疫情前
-
-「忘記」「不確定」「印象有點模糊」這類表達是強烈人類訊號。
-
-### 5. 中段過渡的「總而言之」/「綜上所述」
-
-**禁用**：結尾用空話總結套語收場
-> ❌ 綜上所述，量子運算未來將大放異彩。
-
-**允許**：中段過渡且前後有具體支撐
-> ✅ 總而言之，老師舉了這幾個例子告訴我們應該要懂得跨出舒適圈
-> ✅ 綜上五點所述，由 AI 發展脈絡可知，量子運算將帶來技術突破
-
-判準：套語後接具體前文回扣 → 通過；套語後接空話收場 → 視為 AI 味。
-
-### 6. 網路平台 / 內梗縮寫
-
-> 最多就 yt、b 站上面看到相關影片會看一看
-> IG 滑到的時候會看一下，FB 已經沒在用了
-
-縮寫使用：yt（YouTube）、b 站（bilibili）、IG（Instagram）、FB（Facebook）、tiktok。AI 預設寫全名。
+**Human signals**:
+- Mathematical notation and formulas (A ≤_p B, Attention(Q,K,V), O(n²), x_{t,i,q})
+- Dense citation pattern (Cook 1971, Levin 1973, Karp 1972, Vaswani 2017, Wang 2020, Choromanski 2021, Dao 2022, Razborov & Rudich 1997)
+- Specific problem names (3-SAT, Clique, Vertex Cover, Linformer, Performer, FlashAttention)
+- Specific numbers (BERT-large ~3× speedup, P vs NP open for 50+ years, d_k variance argument)
+- First-person used sparingly ("I attempted to understand", "not clear to me") — natural for graduate-level student writing in CS
+- **Explicit acknowledgment of what is not understood** (universal.md §0: "is it a fundamental lower bound, or an artifact of current implementations?", "I have not found a clean empirical study")
+- Long, dense paragraphs that match the rhythm of technical exposition
+- Em dashes used twice in piece 1, once in piece 2 — within F preset's ≤3 limit
 
 ---
 
-## 容易誤入的反向陷阱
+## Easily-Misjudged Human Signals (6 patterns)
 
-寫「人寫版」時容易過頭，反而生成另一種 AI 味：
+These patterns *look* AI-flavored on the surface but are actually human-writing signals. The skill must let them pass when detecting.
 
-1. **過度反差敘事**：為了顯得有觀點刻意唱反調。立場是「我真的這樣覺得」，不是「我要反主流」。
-2. **誇大語氣**：「最大的錯誤」「九成的人都搞錯」「徹底改變」這類無據的最高級，跟 AI 行銷詞一樣是指紋。有數字支撐才用最高級。
-3. **「不是 X，而是 Y」結構連發**：偶爾用沒事，當主要敘事節奏 = AI 味。
-4. **強迫自嘲**：每段都自嘲也是模式化。自嘲要在自然時機。
-5. **強迫髒話**：A preset 允許髒話，但不是「越多越人」。要在情緒到了的時候自然出現。
-6. **強迫不解釋**：B preset 允許不解釋的人名，但完全沒人能讀懂也是另一個極端。
+### 1. Occasional self-Q&A (≤ 1 occurrence)
+
+**AI consecutive style** (banned):
+> Why does quantum computing matter? Because of parallelism. What's parallelism good for? Superposition. Why is superposition useful? Because it represents 0 and 1 at once. So what does that change about regular computers? Well...
+
+**Human one-shot style** (allowed):
+> Why did I take this course in the first place? Honestly, because I've been into quantum physics since middle school. [Rest of essay doesn't use this structure again.]
+
+Or internal monologue cluster:
+> Am I actually qualified for this class? Should I have signed up? Can I keep up with the others who've taken the prereqs? After spending most of the first week worrying about it, I decided to just try for a month and reassess.
+
+**Rule**: ≤ 1 occurrence across the whole piece + opening rhetorical or internal-monologue framing → pass; consecutive Q-A-Q-A pacing → treat as AI signal.
+
+### 2. Parenthetical asides and self-interruption
+
+Strong human signal. AI doesn't usually interrupt itself this way:
+
+> I also read another pop-science book (god, the title escapes me right now — actually wait, it was the Sean Carroll one on cosmology), which covered the historical context of Big Bang theory.
+
+> A classmate explained it to me (kind of like a remedial tutoring thing after class), but my math background was thin enough that I still picked it up in fragments.
+
+> (Was going to send this off as is, but a video I watched last week is too relevant not to mention, so I added the next paragraph.)
+
+The signal is that the parenthetical contains *meta-level* content — self-evaluation, mid-stream lookup, self-interruption — not just a clarifying gloss. AI doesn't naturally write at this layer.
+
+### 3. Specific pop-culture references
+
+Humans cite specific works as motivation or scene-setting:
+
+> After watching the first season of Sword Art Online, I got curious about how far VR immersion could actually go physically.
+> I read Stephen Hawking's A Brief History of Time in middle school and have been into cosmology since.
+> I subscribe to a few YouTube channels — mostly Veritasium and PBS Space Time.
+> The professor opened the first lecture with a clip from Ghost in the Shell.
+
+AI defaults to generic abstractions ("a science fiction anime", "a popular physics YouTube channel"). **Specific titles are a human fingerprint.**
+
+### 4. Admitting memory uncertainty
+
+AI does not admit uncertainty — it either fabricates or sidesteps. Humans regularly say:
+
+> I think it was 8th or 9th grade physics, can't remember exactly, that they touched on modern physics
+> Damn, I can't remember the title of that book right now
+> Pretty sure it was 2019 or 2020, somewhere pre-pandemic anyway
+
+"Can't remember", "not sure", "I think it was X but I'd have to check" are strong human signals. This connects to universal.md §0 (admit when you don't know).
+
+### 5. Mid-piece "to summarize" / "overall" transitions
+
+**Banned**: empty summary phrases used as a wrap-up
+> ❌ Overall, quantum computing has a bright future ahead.
+> ❌ In conclusion, AI will transform our lives.
+
+**Allowed**: same phrase as a mid-piece transition that calls back to specific prior content
+> ✅ So putting all of this together — the three benchmarks, the latency difference, the memory ceiling — the case for switching to FlashAttention is honestly already strong for our use case.
+> ✅ All told, the things the prof emphasized in this class — interview-driven design, willingness to throw out the first prototype, taking limitations seriously — are what I want to carry into next semester's capstone.
+
+**Rule**: Summary phrase followed by concrete callbacks to earlier content → pass; summary phrase followed by an empty gesture → treat as AI signal.
+
+### 6. Platform / internet abbreviations
+
+> Mostly I just see clips on yt and reddit
+> I check IG once in a while, FB I haven't really used in years
+> there's a discord server where people talk about this stuff
+
+Common abbreviations: yt (YouTube), IG (Instagram), FB (Facebook), tiktok, discord (lowercase). AI defaults to writing out the full platform names.
 
 ---
 
-## 共通辨識重點
+## Reverse traps to avoid
 
-讀完所有範例後：
+When writing the "human version", it's easy to overshoot and produce a different flavor of AI-tone:
 
-### AI 味的核心特徵
-1. **沒有第一手細節**（時間、地點、數字、人名都空著）
-2. **沒有立場**（什麼都好，平衡得可疑）
-3. **結構太工整**（三點並列、平行句、總分總）
-4. **語氣恆溫**（從頭到尾一個調，沒有起伏）
-5. **結尾雞湯**（萬用結語、希望、祝願）
-6. **抽象詞堆疊**（賦能、優雅、強大、卓越）
-7. **政治正確化**（自動 hedge 偏見、避開可能冒犯的觀察）
-8. **完美語法**（毫無錯字、不通的句子）
+1. **Forced contrarianism**: deliberately disagreeing with the mainstream to seem opinionated. A stance is "I actually think this," not "I'll say the opposite of what everyone else says."
+2. **Hyperbole without data**: "the biggest mistake", "nine out of ten people get this wrong", "fundamentally changed" — unsupported superlatives are an AI marketing tic. Only use superlatives when you have actual numbers backing them.
+3. **Repeated "not X, but Y" structure**: one occasionally is fine; if it becomes the main narrative rhythm of the piece, it reads as AI.
+4. **Forced self-deprecation**: every paragraph ending with self-deprecation is itself a pattern. Self-deprecation should arrive when it's natural, not as a tic.
+5. **Forced profanity**: A preset allows profanity, but "more profanity = more human" is wrong. It should appear when the emotional rhythm calls for it.
+6. **Forced opacity**: B preset allows unexplained names, but a piece nobody can follow is its own failure mode.
+7. **Forced word reduction**: A preset's Word Completeness = 1 encourages reduction, but reducing every word reads as performance. Reductions should arrive in the fast-typing emotional moments, not uniformly.
 
-### 人寫的核心特徵
-1. **有具體不能捏造的細節**
-2. **有自然的立場**（「我這樣覺得」而非「我要跟主流不一樣」）
-3. **結構不齊但有節奏**
-4. **語氣有變化**（自嘲、嚴肅、跳躍）
-5. **結尾留白或意外**
-6. **用具體取代抽象**
-7. **政治不正確允許自然出現**
-8. **括號補充、自我打斷、流行文化引用、記憶不確定承認**
+---
 
-辨識原則：**人寫的東西讀起來像「某個人正常說話」，不像「某個人在表演有觀點」，也不像「某個人在裝完美」。**
+## Shared identification criteria
+
+After reading all the examples:
+
+### Core AI-tone features
+1. **No first-hand specifics** (no times, places, numbers, names)
+2. **No stance** (everything is fine, balanced in a suspicious way)
+3. **Structure too clean** (triple-parallel lists, parallel sentences, intro-body-conclusion every time)
+4. **Tonal flatness** (one register throughout, no variation)
+5. **Inspirational endings** (universal closers, hopes, well-wishes, "lays the foundation")
+6. **Abstract-word stacking** (powerful, elegant, robust, comprehensive, profound)
+7. **Politically scrubbed** (auto-hedged biases, dodged observations that might offend)
+8. **Perfect syntax** (no typos, no awkward phrases, no self-interruption)
+9. **Constant word completeness** (always full written-form, no contractions even in emotional contexts — doesn't match any genuine writing situation)
+
+### Core human-writing features
+1. **Specifics that can't be fabricated** without first-hand access
+2. **Natural stance** ("I think this" rather than "I'll go against the grain")
+3. **Uneven structure with its own rhythm**
+4. **Tonal variation** (self-deprecation, seriousness, jumping, flat)
+5. **Endings that trail off or surprise**
+6. **Concrete in place of abstract**
+7. **Politically incorrect observations allowed to surface naturally** (in A/B/C contexts that permit it)
+8. **Parenthetical asides, self-interruption, pop-culture references, memory uncertainty**
+9. **Word completeness matches the context** (A journals reduce a lot; E letters are full-form)
+
+The identifying principle: **human writing reads like "someone talking normally", not like "someone performing a strong opinion", and not like "someone performing perfection."**
