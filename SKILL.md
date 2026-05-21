@@ -85,10 +85,57 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 - **最小紀錄原則**：每條 < 1 行，極致核心摘要
 - 詳見 `core/notes_protocol.md`
 
-### Step 7: 必要時 self-check
+### Step 7: 必要時 self-check（預設輕度檢測，**Layer 1**）
 
 長文輸出（5 正式 / 8 創作）後執行 `self-check.md`。
 短回應（1 閒聊 / 2 情緒 / 6 親密）可省略。
+
+這是 skill 的**預設品管層**：Claude 自己讀 lang_zh/en.md 的指紋清單，按 7 維度打分。**不需要外部工具、不需要任何安裝、不需要 GPU**。對絕大多數情境（包含 D / E / F preset 的日常寫作）都足夠。
+
+### Step 8: 選用 — 機器評分（**Layer 2**，重度，opt-in only）
+
+**這是給「真的要避開商業偵測器」的場景用的**，不是預設流程。Layer 1 已經涵蓋「看起來不像 AI」的目標；Layer 2 是當用戶需要實際過 GPTZero / Originality / Turnitin 等檢測時才出動。
+
+**只在用戶明確表達以下訊號時才考慮觸發**：
+- 「要交 Turnitin」「過 GPTZero」「我們學校 / 公司會用 Originality 偵測」
+- 「跑機器評分」「用 fast-detectgpt 測一下」「給我一個 AI 分數」
+- 「去 AI 味到底」「跑到能過為止」
+- 用戶在 SKILL.md 之外的 conversation 明確指定要呼叫 detector
+
+**不要因為 preset 是 D / E / F 就自動跳到 Step 8**。D 期末報告、E 申請文、F 學術文，預設只跑到 Step 7（self-check）就交付，除非用戶有上述顯式訊號。
+
+呼叫 detector 時的協議（**詳見 `detector/README.md`**）：
+
+1. 先跑 `python -m detector.cli check` 看 `ready` 欄位
+2. `ready: false` → **必須先問用戶**，絕對不要擅自 `pip install`：
+   > 偵測器需要安裝 torch + transformers（首次執行會下載約 3GB 的 Qwen2.5-1.5B 模型）。要現在安裝嗎？或是這次跳過偵測直接輸出？
+3. 用戶拒絕 → 跳過 Step 8，回 Step 7 self-check 後直接交付
+4. F preset threshold 設寬鬆（學術文 perplexity 天生低，是學術寫作本質，不是 AI 味）
+
+未來 phase 將在 Layer 2 疊加：stylometric 指紋（reverse lang_zh/en.md） → 自動 loop 重寫 → 句層級 fact-anchor 鎖定。所有重寫都受三條硬約束：
+- **保證文章正確性**（鎖死數字 / 引用 / 專有名詞）
+- **只作詞句修正**（不重排結構）
+- **bounded iterations**（最多 4 次，分數不再下降即停）
+
+---
+
+## 三層架構速查
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 0: 寫作規則本身（always-on）                            │
+│   core/ + lang_zh/en.md + presets/ + contexts/               │
+│   設計上就「看起來不像 AI」                                    │
+├─────────────────────────────────────────────────────────────┤
+│ Layer 1: self-check.md（預設輕度檢測，Step 7）                │
+│   7 維度啟發式打分，純規則，無外部依賴                          │
+│   D / E / F 預設跑到這層就交付                                 │
+├─────────────────────────────────────────────────────────────┤
+│ Layer 2: detector/（opt-in 重度評分，Step 8）                 │
+│   Fast-DetectGPT，需 torch + transformers + 3GB 模型           │
+│   只在用戶要過實際商業偵測器時觸發                              │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -150,6 +197,12 @@ tw-humanizer/
 ├── examples/
 │   ├── ai-vs-human_zh.md             對抗性樣本範例庫（中文輸出）
 │   └── ai-vs-human_en.md             對抗性樣本範例庫（英文輸出）
+├── detector/                         選用 — Fast-DetectGPT 評分器（heavy deps 預設不裝）
+│   ├── README.md                     設計文件 + 安裝協議（用前必讀）
+│   ├── fast_detectgpt.py             核心評分演算法
+│   ├── cli.py                        CLI 入口（check / score 子命令）
+│   ├── __init__.py                   package init（import-safe，無 torch 也能載）
+│   └── requirements.txt              torch + transformers（用戶同意才裝）
 ├── self-check.md                     寫作後檢查
 └── sample_outputs/                   生成範例（本地用，不入 repo）
 ```
