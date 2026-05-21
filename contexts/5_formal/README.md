@@ -19,15 +19,20 @@
 
 ## 子情境路由
 
-依文體選擇對應 sub-preset：
+依文體選擇對應 sub-preset（按嚴謹度排列）：
 
-| Sub-preset | 文體 | 詳見 |
-|------------|------|------|
-| `application.md` | 申請文、自傳、推薦信、書信 | 對應原 C preset |
-| `report.md` | 期初/期末報告、課程心得、研究提案 | 對應原 D preset |
-| `academic.md` | 學術論文、書評、深度技術分析 | 對應原 E preset |
+| Sub-preset | 文體 | 對應 preset 檔 |
+|------------|------|--------------|
+| C 學生手寫風 | 修課動機書、課程心得、學期反思 | `../../presets/C_student_report.md` |
+| D 學生正式報告 | 期末專題報告書、實驗報告、final paper、研究方法報告 | `../../presets/D_formal_student_project.md` |
+| E 書信 / 履歷 | 寄給教授/主管/上位者的書信、自傳、推薦信、履歷投遞 | `../../presets/E_formal_application.md` |
+| Academic（特殊軌道）| 學術論文、書評、深度技術分析 | `../../presets/academic.md` |
 
-也可以直接參考 `../../presets/C_formal_application.md`、`D_report_personal.md`、`E_academic.md`。
+**選擇依據**：
+- 寫給自己整理用、非正式心得 → C
+- 寫給老師打分數的正式書面成果 → D
+- 寄給人（特別是位階較高者）→ E
+- 寫給學界（投稿、學報級書評）→ academic
 
 ---
 

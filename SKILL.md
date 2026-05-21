@@ -140,11 +140,12 @@ ReportHumanizer/
 │   ├── 8_creative/                  創作（README + notes，涵蓋 A/B + 虛構）
 │   └── 9_teaching/                  教學（README + notes，學習歷程追蹤）
 ├── presets/                          舊版文體 preset（保留作 reference）
-│   ├── A_raw_journal.md              → 對應 8_creative 子情境
-│   ├── B_casual_journal.md           → 對應 8_creative 子情境
-│   ├── C_formal_application.md       → 對應 5_formal 子情境
-│   ├── D_report_personal.md          → 對應 5_formal 子情境
-│   ├── E_academic.md                 → 對應 5_formal 子情境
+│   ├── A_raw_journal.md              → 對應 8_creative（私人雜記）
+│   ├── B_casual_journal.md           → 對應 8_creative（觀察隨筆）
+│   ├── C_student_report.md           → 對應 5_formal（學生手寫風）
+│   ├── D_formal_student_project.md   → 對應 5_formal（學生校內專題報告）
+│   ├── E_formal_application.md       → 對應 5_formal（書信 / 履歷）
+│   └── academic.md                   → 學術專業軌道（不屬 ABCDE 學生光譜）
 │   └── legacy/                       更早期版本
 ├── examples/
 │   └── ai-vs-human.md                對抗性樣本範例庫
