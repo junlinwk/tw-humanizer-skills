@@ -204,8 +204,10 @@ bash install.sh --help       # 完整旗標說明
 
 **特別重要的兩個 notes**：
 
-- `contexts/7_conflict/notes.md`：紀錄 **AI 自己的錯誤模式** + 用戶不耐煩訊號 + 緩和方式。用戶疑似不爽時優先讀此檔。
-- `contexts/9_teaching/notes.md`：紀錄用戶學習歷程，私人家教式。「上次說過 X」式呼應依此檔追蹤。
+- `humanize-data/contexts/7_conflict/notes.md`：紀錄 **AI 自己的錯誤模式** + 用戶不耐煩訊號 + 緩和方式。用戶疑似不爽時優先讀此檔。
+- `humanize-data/contexts/9_teaching/notes.md`：紀錄用戶學習歷程，私人家教式。「上次說過 X」式呼應依此檔追蹤。
+
+> 注意（v0.4.0+）：真實 notes 都在 sibling 目錄 `humanize-data/` 內，不在 skill 目錄裡。skill 內的 `contexts/{N}/notes.md` **只是模板**，升級時會被覆寫。
 
 詳見 [`core/notes_protocol.md`](./core/notes_protocol.md)。
 
@@ -291,11 +293,13 @@ humanize/
 
 ## 隱私說明
 
-- 所有 `notes.md` 都存在**本地**安裝目錄，例如 `~/.claude/skills/humanize/contexts/{N}/notes.md` 或 `~/.codex/skills/humanize/contexts/{N}/notes.md`
+- 所有 `notes.md` 都存在**本地** user data 目錄（sibling 於 skill 目錄）：
+  - Claude Code: `~/.claude/skills/humanize-data/contexts/{N}/notes.md`
+  - Codex: `${CODEX_HOME:-~/.codex}/skills/humanize-data/contexts/{N}/notes.md`
 - **不上傳任何雲端**（AI 工具的對話內容可能送到各自服務端，但這些 notes 檔是 agent 寫入你本機磁碟的）
 - 你可以隨時讀取、編輯、刪除 notes
 - 用戶若要求「別記這個」，agent 會遵守
-- uninstall.sh 有 `--keep-notes` 旗標可以在移除前備份
+- uninstall.sh 預設**保留** `humanize-data/`（升級 / 重灌也不會動）；想徹底清除請加 `--purge-data` 旗標
 
 ---
 

@@ -5,6 +5,28 @@ AI 在互動後可更新此檔，下次相同語境互動前先閱讀。
 
 ---
 
+## 路徑（重要）
+
+**真實用戶 notes 永遠寫在 `humanize-data/`，不是 skill 內的 `contexts/{N}/notes.md`**。
+
+| 位置 | 用途 | 是否會被升級覆寫 |
+|------|------|----------------|
+| `${SKILL_DIR}/contexts/{N}/notes.md` | 模板（首次安裝時的空殼） | ✅ **會** — 不要在此累積記憶 |
+| `${SKILL_DIR}/../humanize-data/contexts/{N}/notes.md` | 真實累積的用戶記憶 | ❌ **不會** — installer 永不碰 |
+
+**絕對路徑範例**：
+
+- Claude Code: `~/.claude/skills/humanize-data/contexts/1_chat/notes.md`
+- Codex: `${CODEX_HOME:-~/.codex}/skills/humanize-data/contexts/1_chat/notes.md`
+
+**讀寫規則**：
+
+1. 讀：先讀 `humanize-data/...`；若該檔不存在，fallback 讀 skill 內模板 `${SKILL_DIR}/contexts/{N}/notes.md`
+2. 寫：永遠寫到 `humanize-data/...`；若目錄不存在則建立（installer 應該已建好）
+3. 升級後：skill 內模板被刷新，但用戶 `humanize-data/` 保留不動
+
+---
+
 ## 核心原則
 
 1. **最小紀錄**：每條 < 1 行，極致核心摘要
@@ -38,13 +60,13 @@ AI 在互動後可更新此檔，下次相同語境互動前先閱讀。
 - 換語境時
 - 觀察到新模式時
 - 用戶明確說「記住 X」時
-- **特別重要**：AI 在 7 衝突 中發現自己的錯誤後，必須記到 `7_conflict/notes.md`
+- **特別重要**：AI 在 7 衝突 中發現自己的錯誤後，必須記到 `humanize-data/contexts/7_conflict/notes.md`
 
 ## 閱讀時機
 
 - 進入該語境前（必讀）
 - 不確定如何回應時
-- 用戶疑似不耐煩時 → 優先讀 `7_conflict/notes.md`
+- 用戶疑似不耐煩時 → 優先讀 `humanize-data/contexts/7_conflict/notes.md`
 - 教學 / 求助 / 創作互動前 → 讀對應 notes 確認用戶水平與偏好
 
 ---

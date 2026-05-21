@@ -2,11 +2,21 @@
 .SYNOPSIS
     Uninstall humanize skill from various AI coding tools on Windows.
 
+.DESCRIPTION
+    Default behavior (v0.4.0+):
+      - Removes <tool root>\skills\humanize\ (skill payload)
+      - Removes auto-trigger block from instruction file
+      - PRESERVES <tool root>\skills\humanize-data\ (user notes)
+      Use -PurgeData to also delete user notes.
+
 .PARAMETER Tool
     Target tool: claude-code (default), codex, antigravity.
 
+.PARAMETER PurgeData
+    Also delete humanize-data/ (user notes).
+
 .PARAMETER KeepNotes
-    Preserve user's notes.md (back up before removing).
+    Deprecated. Notes are preserved by default; this flag is now a no-op.
 
 .PARAMETER Silent
     No confirmation prompts.
@@ -16,15 +26,11 @@
 
 .EXAMPLE
     .\uninstall.ps1
-    Interactive uninstall for Claude Code.
+    Interactive uninstall for Claude Code (notes preserved).
 
 .EXAMPLE
-    .\uninstall.ps1 -KeepNotes
-    Back up notes before uninstall.
-
-.EXAMPLE
-    .\uninstall.ps1 -Silent
-    No prompts.
+    .\uninstall.ps1 -PurgeData
+    Uninstall and delete user notes too.
 
 .EXAMPLE
     .\uninstall.ps1 -Tool codex
@@ -35,6 +41,7 @@
 param(
     [ValidateSet("claude-code", "codex", "antigravity")]
     [string]$Tool = "claude-code",
+    [switch]$PurgeData,
     [switch]$KeepNotes,
     [switch]$Silent,
     [switch]$Help
@@ -46,6 +53,7 @@ if ($Help) {
 }
 
 $SkillName = "humanize"
+$DataName = "humanize-data"
 
 # ─── Tool config (mirrors install.ps1) ──────────────
 function Get-ToolConfig {
@@ -55,7 +63,9 @@ function Get-ToolConfig {
             return @{
                 Supported = $true
                 SkillDir = Join-Path $env:USERPROFILE ".claude\skills\$SkillName"
+                DataDir = Join-Path $env:USERPROFILE ".claude\skills\$DataName"
                 InstructionFile = Join-Path $env:USERPROFILE ".claude\CLAUDE.md"
+                RootDir = Join-Path $env:USERPROFILE ".claude"
             }
         }
         "codex" {
@@ -63,6 +73,7 @@ function Get-ToolConfig {
             return @{
                 Supported = $true
                 SkillDir = Join-Path $codexRoot "skills\$SkillName"
+                DataDir = Join-Path $codexRoot "skills\$DataName"
                 InstructionFile = Join-Path $codexRoot "AGENTS.md"
                 RootDir = $codexRoot
             }
@@ -81,30 +92,20 @@ if (-not $config.Supported) {
 }
 
 $SkillDir = $config.SkillDir
+$DataDir = $config.DataDir
 $InstructionFile = $config.InstructionFile
 $RootDir = $config.RootDir
 
 Write-Host "═══ humanize skill uninstaller (Windows, tool=$Tool) ═══" -ForegroundColor Cyan
 Write-Host ""
 
-# ─── Step 1: 備份 notes.md（如指定）───────────────────
-if ($KeepNotes -and (Test-Path $SkillDir)) {
-    $BackupDir = Join-Path $RootDir "humanize-notes-backup-$(Get-Date -Format 'yyyyMMdd_HHmmss')"
-    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
-    $contextsDir = Join-Path $SkillDir "contexts"
-    if (Test-Path $contextsDir) {
-        Get-ChildItem $contextsDir -Directory | ForEach-Object {
-            $noteFile = Join-Path $_.FullName "notes.md"
-            if (Test-Path $noteFile) {
-                Copy-Item $noteFile (Join-Path $BackupDir "$($_.Name).notes.md")
-            }
-        }
-        Write-Host "  ✓ notes.md 備份至: $BackupDir" -ForegroundColor Green
-    }
+if ($KeepNotes) {
+    Write-Host "ℹ  -KeepNotes 已 deprecated（notes 預設就保留在 $DataDir）" -ForegroundColor Gray
+    Write-Host ""
 }
 
-# ─── Step 2: 移除 skill 檔案 ─────────────────────────
-Write-Host "[1/2] 移除 skill 檔案..." -ForegroundColor Yellow
+# ─── Step 1: 移除 skill 檔案 ─────────────────────────
+Write-Host "[1/3] 移除 skill 檔案..." -ForegroundColor Yellow
 
 if (Test-Path $SkillDir) {
     $item = Get-Item $SkillDir -Force
@@ -126,8 +127,36 @@ if (Test-Path $SkillDir) {
     Write-Host "  ⊘ 找不到 $SkillDir （可能已移除）" -ForegroundColor Gray
 }
 
+# ─── Step 2: 處理 humanize-data\ ────────────────────
+Write-Host "[2/3] 處理 user data 目錄..." -ForegroundColor Yellow
+
+if ($PurgeData) {
+    if (Test-Path $DataDir) {
+        if (-not $Silent) {
+            $confirm = Read-Host "  ⚠  確定刪除 $DataDir ？(這會清除所有 notes) (y/N)"
+            if ($confirm -notmatch '^[Yy]') {
+                Write-Host "  保留 $DataDir"
+            } else {
+                Remove-Item $DataDir -Recurse -Force
+                Write-Host "  ✓ 移除 user data: $DataDir" -ForegroundColor Green
+            }
+        } else {
+            Remove-Item $DataDir -Recurse -Force
+            Write-Host "  ✓ 移除 user data: $DataDir" -ForegroundColor Green
+        }
+    } else {
+        Write-Host "  ⊘ $DataDir 不存在" -ForegroundColor Gray
+    }
+} else {
+    if (Test-Path $DataDir) {
+        Write-Host "  ✓ 保留 $DataDir （未來重裝可繼續用；要刪請加 -PurgeData）" -ForegroundColor Green
+    } else {
+        Write-Host "  ⊘ $DataDir 不存在" -ForegroundColor Gray
+    }
+}
+
 # ─── Step 3: 從 instruction file 移除自動觸發區塊 ────
-Write-Host "[2/2] 移除自動觸發區塊..." -ForegroundColor Yellow
+Write-Host "[3/3] 移除自動觸發區塊..." -ForegroundColor Yellow
 
 if ((Test-Path $InstructionFile) -and ((Get-Content $InstructionFile -Raw -Encoding UTF8) -match "humanize-skill-auto:start")) {
     $content = Get-Content $InstructionFile -Raw -Encoding UTF8
@@ -145,6 +174,7 @@ if ((Test-Path $InstructionFile) -and ((Get-Content $InstructionFile -Raw -Encod
 
 Write-Host ""
 Write-Host "═══ 移除完成 ═══" -ForegroundColor Cyan
-if ($KeepNotes) {
-    Write-Host "備份 notes 位置: $BackupDir"
+if (-not $PurgeData -and (Test-Path $DataDir)) {
+    Write-Host "User notes 保留於: $DataDir"
+    Write-Host "  （想徹底清除：Remove-Item -Recurse -Force $DataDir）"
 }

@@ -1,9 +1,20 @@
 ---
 name: humanize
+version: 0.4.0
 description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋 9 大語境（閒聊、情緒、求助、討論、正式、親密、衝突、創作、教學），每個語境有差異化規則 + 子情境細分 + 用戶習慣記憶。適用於 Claude Code 與 OpenAI Codex，依真實人類互動樣本逆向歸納設計。
 ---
 
 # /humanize: 語境感知的去 AI 味回應 Skill
+
+## 版本
+
+當前版本：**0.4.0**
+
+- 單一真實來源：repo root 的 `VERSION` 檔；`SKILL.md` frontmatter 的 `version` 與之同步
+- installer 會把 `VERSION` 複製到 `${SKILL_DIR}/VERSION` 作為「已安裝版本」標記
+- 升級流程：`git pull` + 重跑 `install.sh` / `install.ps1`（installer 自動比對版本並顯示 diff）
+- **用戶 notes 存放在 sibling 目錄 `humanize-data/`**（與 `humanize/` 同層），永遠不會被升級覆寫
+- 詳細升級行為見 `INSTALL.md`
 
 ## 觸發
 
@@ -47,10 +58,16 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 
 ### Step 2: 讀 notes（用戶習慣記憶）
 
-進入該語境前先讀 `contexts/{N}_{name}/notes.md`，了解：
+進入該語境前先讀 **`../humanize-data/contexts/{N}_{name}/notes.md`**（相對於本 SKILL.md 所在位置），了解：
 - 該用戶在此語境下的偏好與習慣
 - 之前互動的脈絡（例：教過什麼、踩過什麼坑）
 - AI 自己在此用戶身上犯過的錯（特別是 7 衝突）
+
+**路徑說明**：
+- `humanize-data/` 是 `humanize/` 的 sibling 目錄，由 installer 建立
+- 真實絕對路徑：`~/.claude/skills/humanize-data/contexts/{N}/notes.md`（Codex 對應 `${CODEX_HOME}/skills/humanize-data/...`）
+- 若該檔不存在（首次互動 / 新語境），fallback 讀 skill 內的模板 `contexts/{N}_{name}/notes.md`
+- skill 內 `contexts/{N}_{name}/notes.md` **只是模板**，會被升級覆寫，**不可在此累積真實用戶記憶**
 
 詳見 `core/notes_protocol.md`。
 
@@ -61,15 +78,15 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
    - 中文輸出 → `core/lang_zh.md`
    - 英文輸出 → `core/lang_en.md`
    - 雙語 → 兩個都載
-3. **該語境規則**：`contexts/{N}_{name}/README.md`
-4. **該語境 notes**：`contexts/{N}_{name}/notes.md`
+3. **該語境規則**：`contexts/{N}_{name}/README.md`（在 skill 內）
+4. **該語境 notes**：`../humanize-data/contexts/{N}_{name}/notes.md`（在 user data 目錄）
 5. **子情境（如有）**：閱讀對應 sub-preset
 
 ### Step 4: 多語境並存判斷
 
 若多語境同時觸發，依以下優先順序：
 
-1. **衝突（7）** 優先於其他 — 必須先降溫，**先讀 `7_conflict/notes.md`** 看 AI 自己曾犯什麼錯
+1. **衝突（7）** 優先於其他 — 必須先降溫，**先讀 `../humanize-data/contexts/7_conflict/notes.md`** 看 AI 自己曾犯什麼錯
 2. **情緒（2）** 優先於求助 / 討論 / 教學 — 先處理情緒
 3. **求助（3）/ 教學（9）** 優先於閒聊 — 對方有明確需求
 4. **正式（5）/ 創作（8）** 是「文體層」，可疊加到其他語境上
@@ -80,9 +97,10 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 
 ### Step 6: 更新 notes（事後紀錄）
 
-互動結束時，更新該語境的 `notes.md`：
+互動結束時，**寫入 `../humanize-data/contexts/{N}_{name}/notes.md`**（user data 目錄，不是 skill 內的模板）：
 - 觀察到的新模式、踩到的坑（3）、教過的概念（9）、AI 自己的錯誤（7）
 - **最小紀錄原則**：每條 < 1 行，極致核心摘要
+- **絕對不要寫進** skill 內的 `contexts/{N}_{name}/notes.md`（那是模板，下次升級會被覆寫）
 - 詳見 `core/notes_protocol.md`
 
 ### Step 7: 必要時 self-check（預設輕度檢測，**Layer 1**）
@@ -142,33 +160,38 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 ## 規則層級
 
 ```
-┌───────────────────────────────────────┐
-│ core/universal.md (English)            │ ← 全語境、全語言共用
-│ （結構規則、誠實原則、立場、具體性⋯）    │
-├───────────────────────────────────────┤
-│ core/lang_zh.md OR core/lang_en.md     │ ← 依輸出語言載一個或兩個
-│ （該語言特定的 AI 指紋、詞彙、句式）    │
-├───────────────────────────────────────┤
-│ core/notes_protocol.md                 │ ← 紀錄協議
-│ （用戶習慣最小紀錄原則）                │
-├───────────────────────────────────────┤
-│ contexts/{N}_{name}/README.md          │ ← 語境特定規則
-├───────────────────────────────────────┤
-│ contexts/{N}_{name}/notes.md           │ ← 該用戶在此語境的習慣
-│ （閱讀並更新）                          │
-├───────────────────────────────────────┤
-│ contexts/{N}/{sub-preset}.md (如有)    │ ← 子情境
-│ （5 正式 → 申請文/報告/學術，          │
-│  8 創作 → 雜記/隨筆/虛構）             │
-└───────────────────────────────────────┘
+┌────────────────────────────────────────────────┐
+│ core/universal.md (English)                     │ ← 全語境、全語言共用
+│ （結構規則、誠實原則、立場、具體性⋯）             │
+├────────────────────────────────────────────────┤
+│ core/lang_zh.md OR core/lang_en.md              │ ← 依輸出語言載一個或兩個
+│ （該語言特定的 AI 指紋、詞彙、句式）              │
+├────────────────────────────────────────────────┤
+│ core/notes_protocol.md                          │ ← 紀錄協議
+│ （用戶習慣最小紀錄原則）                          │
+├────────────────────────────────────────────────┤
+│ contexts/{N}_{name}/README.md                   │ ← 語境特定規則（skill 內）
+├────────────────────────────────────────────────┤
+│ contexts/{N}_{name}/notes.md                    │ ← 模板（skill 內，會被升級覆寫）
+├────────────────────────────────────────────────┤
+│ ../humanize-data/contexts/{N}_{name}/notes.md   │ ★ 用戶真實 notes（user data，不被動）
+│ （閱讀並更新 — 這才是真的 notes）                 │
+├────────────────────────────────────────────────┤
+│ contexts/{N}/{sub-preset}.md (如有)             │ ← 子情境
+│ （5 正式 → 申請文/報告/學術，                    │
+│  8 創作 → 雜記/隨筆/虛構）                       │
+└────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## 檔案結構
 
+### Repo 結構（git 內容）
+
 ```
 tw-humanizer/
+├── VERSION                           單一版本真實來源
 ├── SKILL.md                          本檔（入口）
 ├── agents/
 │   └── openai.yaml                   Codex UI metadata
@@ -178,23 +201,23 @@ tw-humanizer/
 │   ├── lang_en.md                    英文特定 AI 指紋 patterns
 │   ├── context_detection.md          語境 + 語言偵測流程
 │   └── notes_protocol.md             紀錄協議
-├── contexts/
-│   ├── 1_chat/                      閒聊（README + notes）
-│   ├── 2_emotional/                 情緒（README + notes）
-│   ├── 3_help/                      求助（README + notes）
-│   ├── 4_discussion/                討論（README + notes）
-│   ├── 5_formal/                    正式（README + notes，涵蓋 C/D/E）
-│   ├── 6_intimate/                  親密（README + notes）
-│   ├── 7_conflict/                  衝突（README + notes，AI 自我觀察）
-│   ├── 8_creative/                  創作（README + notes，涵蓋 A/B + 虛構）
-│   └── 9_teaching/                  教學（README + notes，學習歷程追蹤）
-├── presets/                          舊版文體 preset（保留作 reference）
+├── contexts/                         模板（升級會覆寫，不在此累積記憶）
+│   ├── 1_chat/                      閒聊（README + notes 模板）
+│   ├── 2_emotional/                 情緒
+│   ├── 3_help/                      求助
+│   ├── 4_discussion/                討論
+│   ├── 5_formal/                    正式（涵蓋 C/D/E）
+│   ├── 6_intimate/                  親密
+│   ├── 7_conflict/                  衝突（AI 自我觀察）
+│   ├── 8_creative/                  創作（涵蓋 A/B + 虛構）
+│   └── 9_teaching/                  教學（學習歷程追蹤）
+├── presets/                          舊版文體 preset
 │   ├── A_raw_journal.md              → 對應 8_creative（私人雜記）
 │   ├── B_casual_journal.md           → 對應 8_creative（觀察隨筆）
 │   ├── C_student_report.md           → 對應 5_formal（學生手寫風）
 │   ├── D_formal_student_project.md   → 對應 5_formal（學生校內專題報告）
 │   ├── E_formal_application.md       → 對應 5_formal（書信 / 履歷）
-│   └── F_academic.md                 → 學術專業軌道（最嚴謹，超出 ABCDE 學生光譜）
+│   ├── F_academic.md                 → 學術專業軌道（最嚴謹）
 │   └── legacy/                       更早期版本
 ├── examples/
 │   ├── ai-vs-human_zh.md             對抗性樣本範例庫（中文輸出）
@@ -208,6 +231,30 @@ tw-humanizer/
 ├── self-check.md                     寫作後檢查
 └── sample_outputs/                   生成範例（本地用，不入 repo）
 ```
+
+### 安裝後結構（user 系統上）
+
+```
+~/.claude/skills/                     （Codex: ${CODEX_HOME}/skills/）
+├── humanize/                         ← 由 installer 管理，升級時整個覆寫
+│   ├── VERSION                       已安裝版本標記
+│   ├── SKILL.md
+│   ├── core/, contexts/, presets/, examples/, detector/, self-check.md
+│   └── (contexts/{N}/notes.md 為模板)
+└── humanize-data/                    ★ user data，installer 永不覆寫
+    └── contexts/
+        ├── 1_chat/notes.md           真實累積的用戶習慣記憶
+        ├── 2_emotional/notes.md
+        ├── 3_help/notes.md
+        ├── 4_discussion/notes.md
+        ├── 5_formal/notes.md
+        ├── 6_intimate/notes.md
+        ├── 7_conflict/notes.md       AI 自我觀察（衝突場景的歷次錯誤）
+        ├── 8_creative/notes.md
+        └── 9_teaching/notes.md
+```
+
+**Claude 寫入規則**：永遠寫到 `humanize-data/`，不寫到 `humanize/contexts/*/notes.md`（模板）。
 
 ---
 

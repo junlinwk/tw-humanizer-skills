@@ -96,91 +96,122 @@ grep -A 3 "humanize-skill-auto:start" ~/.codex/AGENTS.md
 
 ---
 
+## 版本管控（v0.4.0+）
+
+- 單一真實來源：repo root 的 `VERSION` 檔（目前 **0.4.0**），同步寫入 `SKILL.md` frontmatter 的 `version`
+- installer 把 `VERSION` 一併安裝到 `${SKILL_DIR}/VERSION` 作為「已安裝版本」標記
+- 升級時 installer 自動比對 `repo VERSION` vs `${SKILL_DIR}/VERSION` 並印升級 banner（`0.3.x → 0.4.0`）
+- frontmatter `version` 與根 `VERSION` 檔**必須同步**；改一個就要改另一個
+
+---
+
 ## 安裝後會發生什麼
 
-### Skill 檔案
+### Skill 檔案（會被升級覆寫）
 位置：
 - Claude Code: `~/.claude/skills/humanize/`
 - Codex: `${CODEX_HOME:-~/.codex}/skills/humanize/`
+
 內含：
+- `VERSION` — 已安裝版本標記
 - `SKILL.md` — 入口路由
 - `core/` — 通用規則 + 語境判斷 + 紀錄協議
-- `contexts/1-9/` — 9 個語境，各含 README + notes.md
+- `contexts/1-9/` — 9 個語境，各含 README + notes.md **模板**
 - `examples/`、`presets/`、`self-check.md`
+
+### User data 目錄（installer 永不碰）★ v0.4.0 新增
+位置：
+- Claude Code: `~/.claude/skills/humanize-data/`
+- Codex: `${CODEX_HOME:-~/.codex}/skills/humanize-data/`
+
+內含：
+- `contexts/{1..9}_{name}/notes.md` — 真實累積的用戶習慣記憶
+
+**重要**：
+- agent **永遠**寫入這個目錄，不寫進 skill 內模板
+- 升級 / 重灌 / uninstall 預設都**不會**動這個目錄
+- 想徹底清除請 `bash uninstall.sh --purge-data`（或手動 `rm -rf`）
 
 ### Auto-trigger 區塊（如啟用）
 位置：
 - Claude Code: `~/.claude/CLAUDE.md`
 - Codex: `${CODEX_HOME:-~/.codex}/AGENTS.md`
-內容：用 markers 包起來的指令區塊（不會干擾你自己的既有指令內容）
+
+內容：用 markers 包起來的指令區塊，**內含當前 SKILL_DIR / DATA_DIR 絕對路徑**（升級時 installer 會自動替換成新版區塊）。
 
 ```markdown
 <!-- humanize-skill-auto:start -->
 ## humanize skill 自動套用
-每次回應前依以下流程處理：
-1. 讀入口檔
-2. 偵測語境
-3. ...
+... 含 SKILL_DIR / DATA_DIR 路徑 ...
 <!-- humanize-skill-auto:end -->
 ```
 
 uninstall 時這個區塊會被乾淨移除（透過 markers 識別）。
 
-### 用戶習慣紀錄
-位置：目標工具的 skill 安裝目錄下，例如 `~/.claude/skills/humanize/contexts/{N}_{name}/notes.md` 或 `~/.codex/skills/humanize/contexts/{N}_{name}/notes.md`
-- 一開始是空白模板
-- agent 互動後會慢慢累積（最小紀錄原則，每條 < 1 行）
-- 9 個語境分別紀錄不同類型的習慣 / 偏好 / 踩坑 / 學習進度
-
 ---
 
 ## 隱私說明
 
-- 所有 notes.md 都存在**本地** skill 安裝目錄
+- 所有 notes 都存在**本地** `humanize-data/` 目錄
 - **不會上傳到任何雲端**（AI 工具的對話內容可能送到各自服務端，但這些檔案是 agent 寫入你本機磁碟的）
-- 你可以隨時讀取、編輯、刪除 notes.md
+- 你可以隨時讀取、編輯、刪除 `humanize-data/contexts/*/notes.md`
 - 用戶若要求「別記這個」，agent 會遵守並避免寫入相關內容
 
 ---
 
 ## 移除
 
-### 完整移除
+### 預設移除（保留 notes）
 ```bash
 bash uninstall.sh
 ```
-會移除：
-- `~/.claude/skills/humanize/` 整個目錄
-- `~/.claude/CLAUDE.md` 中的自動觸發區塊
+會：
+- ✓ 移除 `~/.claude/skills/humanize/` 整個 skill 目錄
+- ✓ 移除 `~/.claude/CLAUDE.md` 中的自動觸發區塊
+- **保留** `~/.claude/skills/humanize-data/`（user notes）— 下次重裝可直接接上
 
 Codex：
 ```bash
 bash uninstall.sh --tool=codex
 ```
-會移除 `${CODEX_HOME:-~/.codex}/skills/humanize/` 與 `${CODEX_HOME:-~/.codex}/AGENTS.md` 中的自動觸發區塊。
 
-### 保留 notes.md 備份
+### 連 notes 一起刪
 ```bash
-bash uninstall.sh --keep-notes
+bash uninstall.sh --purge-data
 ```
-會在目標工具 root 下的 `humanize-notes-backup-YYYYMMDD_HHMMSS/` 備份所有 notes，再執行完整移除。
+**注意**：會徹底刪除 `humanize-data/`，所有累積的用戶記憶都會消失，不可復原。
+
+舊 flag `--keep-notes` 已 deprecated（notes 預設就保留）。
 
 ---
 
-## 更新 Skill
+## 更新 Skill（升級流程）
 
 ### 標準模式（複製版）
 ```bash
-cd humanize-skill  # 原本 clone 的位置
+cd humanize-skill   # 原本 clone 的位置
 git pull
-bash install.sh    # 重跑會覆蓋舊版
+bash install.sh     # installer 會自動：
+                    #   1. 比對版本，印 "0.3.x → 0.4.0" banner
+                    #   2. 覆寫 ~/.claude/skills/humanize/（含新 VERSION 檔）
+                    #   3. 不動 ~/.claude/skills/humanize-data/（保留 notes）
+                    #   4. 把 instruction file 的 auto-trigger 區塊換成新版
 ```
 
 ### 開發模式（symlink 版）
 ```bash
 cd humanize-skill
 git pull
-# 不用重新 install，symlink 已指向原始檔案
+# symlink 指向 repo，內容即時生效
+# 但若 SKILL.md 變動了路徑 / 邏輯，需要重跑 install.sh --dev 來更新
+# instruction file 的 auto-trigger 區塊（含絕對路徑）
+```
+
+### 驗證已升級
+```bash
+cat ~/.claude/skills/humanize/VERSION       # 應顯示 0.4.0
+head -5 ~/.claude/skills/humanize/SKILL.md  # frontmatter 內 version 應一致
+ls ~/.claude/skills/humanize-data/contexts/ # 確認 notes 還在
 ```
 
 ---
@@ -233,7 +264,7 @@ Get-Help .\install.ps1 -Detailed
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
-移除：`.\uninstall.ps1`，加 `-KeepNotes` 可備份 notes 後再移除。
+移除：`.\uninstall.ps1`（預設保留 notes），加 `-PurgeData` 連 notes 一起刪。`-KeepNotes` 已 deprecated（預設就保留）。
 
 **WSL2 替代方案**：在 WSL2 內跑 `bash install.sh` 也行。
 
