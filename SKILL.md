@@ -121,7 +121,7 @@ description: 去除 AI 味，依語境光譜路由到不同回應策略。涵蓋
 ## 檔案結構
 
 ```
-ReportHumanizer/
+tw-humanizer/
 ├── SKILL.md                          本檔（入口）
 ├── core/
 │   ├── universal.md                  通用核心規則（English，語言中立）
