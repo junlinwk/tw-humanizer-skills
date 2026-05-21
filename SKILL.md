@@ -145,7 +145,7 @@ ReportHumanizer/
 │   ├── C_student_report.md           → 對應 5_formal（學生手寫風）
 │   ├── D_formal_student_project.md   → 對應 5_formal（學生校內專題報告）
 │   ├── E_formal_application.md       → 對應 5_formal（書信 / 履歷）
-│   └── academic.md                   → 學術專業軌道（不屬 ABCDE 學生光譜）
+│   └── F_academic.md                 → 學術專業軌道（最嚴謹，超出 ABCDE 學生光譜）
 │   └── legacy/                       更早期版本
 ├── examples/
 │   └── ai-vs-human.md                對抗性樣本範例庫

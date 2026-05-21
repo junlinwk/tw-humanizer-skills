@@ -7,6 +7,7 @@ contexts/*/notes.user.md
 
 # 開發測試筆記 / 草稿
 sample_outputs/problem.txt
+sample_outputs/selfintro.txt
 sample_outputs/*.draft.txt
 sample_outputs/*_local.txt
 *.tmp

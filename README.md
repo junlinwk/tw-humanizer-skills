@@ -213,7 +213,7 @@ humanize/
 │   ├── C_student_report.md           → 5 正式 子情境（學生手寫風）
 │   ├── D_formal_student_project.md   → 5 正式 子情境（學生校內專題報告）
 │   ├── E_formal_application.md       → 5 正式 子情境（書信 / 履歷 / 申請文）
-│   └── academic.md                   → 學術專業（書信外的學術寫作專業軌道）
+│   └── F_academic.md                 → 學術專業（最嚴謹，超出學生 ABCDE 光譜）
 │   └── legacy/                       更早版本（封存）
 ├── examples/
 │   └── ai-vs-human.md                對抗性樣本範例庫
