@@ -221,10 +221,10 @@ if ($Mode -eq "symlink") {
 }
 
 if ($Mode -eq "copy") {
-    # robocopy 排除 .git、安裝腳本、Reference、本地測試
+    # robocopy 排除 .git、安裝腳本、Reference、sample_outputs、本地測試
     $robocopyArgs = @(
         $RepoDir, $SkillDir, "/E",
-        "/XD", ".git", "Reference",
+        "/XD", ".git", "Reference", "sample_outputs",
         "/XF", ".DS_Store", "install.sh", "install.ps1", "uninstall.sh", "uninstall.ps1", "problem.txt",
         "/NFL", "/NDL", "/NJH", "/NJS"
     )

@@ -5,11 +5,13 @@
 contexts/*/notes_local.md
 contexts/*/notes.user.md
 
-# 開發測試筆記 / 草稿
-sample_outputs/problem.txt
-sample_outputs/selfintro.txt
-sample_outputs/*.draft.txt
-sample_outputs/*_local.txt
+# sample_outputs/ 整個資料夾不入 repo
+# - 是 demo / 測試內容
+# - 安裝後 Claude 在用戶本機生成的 sample 也會落在這
+# - 本地可以保留供開發參考，但不對外發佈
+sample_outputs/
+
+# 其他開發測試 / 草稿
 *.tmp
 *.draft
 

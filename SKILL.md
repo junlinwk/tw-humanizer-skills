@@ -150,7 +150,7 @@ ReportHumanizer/
 ├── examples/
 │   └── ai-vs-human.md                對抗性樣本範例庫
 ├── self-check.md                     寫作後檢查
-└── sample_outputs/                   生成範例
+└── sample_outputs/                   生成範例（本地用，不入 repo）
 ```
 
 ---

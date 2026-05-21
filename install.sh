@@ -195,7 +195,7 @@ else
         --exclude 'uninstall.sh' \
         --exclude 'uninstall.ps1' \
         --exclude 'Reference' \
-        --exclude 'sample_outputs/problem.txt' \
+        --exclude 'sample_outputs' \
         "$REPO_DIR/" "$SKILL_DIR/"
     echo "  ✓ copied to: $SKILL_DIR"
 fi
