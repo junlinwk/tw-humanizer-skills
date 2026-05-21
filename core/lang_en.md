@@ -10,17 +10,56 @@ Pairs with `universal.md`. Contains English-specific AI fingerprints not covered
 
 Banned across all contexts:
 
-delve, leverage, robust (when overused), seamless, holistic, nuanced, intricate, pivotal, paramount, tapestry, multifaceted, foster, empower, unleash, navigate (metaphorical), ecosystem (corporate-speak)
+### Core AI vocabulary (highest priority)
+delve, delving, delved, leverage, leveraging, utilize, utilizing, utilization, comprehensive, robust (overused), seamless, seamlessly, streamline, streamlined
+
+### Mid-tier AI vocabulary
+holistic, nuanced, intricate, pivotal, paramount, tapestry, multifaceted, foster, empower, unleash, navigate (metaphorical)
+
+### Corporate-speak / buzzwords
+synergy, synergies, paradigm, paradigm shift, ecosystem (corporate sense), stakeholder, stakeholders, actionable, actionable insights, best practices, going forward, at the end of the day, circle back, touch base, low-hanging fruit, move the needle, game-changer, cutting-edge, state-of-the-art, innovative, revolutionary, groundbreaking, transformative
+
+### Inflated adjectives
+powerful, elegant, comprehensive, sustainable, scalable, dynamic, strategic, best-in-class, next-generation, world-class
 
 ---
 
 ## 2. English Sentence Pattern Blacklist
 
+### Generic opener / closer clichés
 - "In today's fast-paced world"
 - "In the ever-evolving landscape of..."
+- "In recent years, there has been growing interest in..."
+- "With the rapid development of..."
 - "Let's dive into..."
+- "In this article, we will explore..."
+- "In conclusion / In summary / To summarize"
+
+### Filler phrases
 - "It's worth noting that"
+- "It's important to note that"
 - "It's important to remember"
+- "It is interesting that..."
+- "Notably,..."
+
+### "It is X that Y" filler constructions
+- "It is observed that..."
+- "It can be seen that..."
+- "It should be noted that..."
+
+### AI assistant self-reference (strongest tell)
+- "As an AI" / "As a language model"
+- "I would be happy to..." → use "I'd love to" / "happy to"
+- "I cannot" → use "I can't"
+- "Feel free to ask..."
+- "Great question!" / "Excellent question!"
+- "Certainly" / "Absolutely" (overused affirmations)
+- "I hope this email finds you well"
+- "Do not hesitate to..."
+- "Please be advised..."
+- "At your earliest convenience"
+
+### Other patterns
 - "As we navigate..."
 - "It's not just X, it's Y" — **THE ChatGPT signature, avoid completely**
 
@@ -192,3 +231,93 @@ If it's important, just state it. The flag is redundant.
 - ❌ "for developers, designers, and more"
 
 Lists either end concretely or with "etc." — not vague extension.
+
+---
+
+## 18. Lack of Contractions = AI Signal (Casual / Blog contexts)
+
+In casual English (chat / blog / personal writing), humans use contractions naturally. AI tends to write the formal expanded form.
+
+### Detection
+If a piece of casual/blog English ≥ 50 words has **zero** contractions, that's a strong AI tell.
+
+### Common contractions humans use naturally
+- don't (not "do not"), can't ("cannot"), won't ("will not")
+- I'm, I've, I'll, I'd, you're, you've, we're, we've, they're
+- it's, that's, there's, here's, what's, let's
+- isn't, aren't, wasn't, weren't, hasn't, haven't, hadn't
+- couldn't, wouldn't, shouldn't, didn't, doesn't
+
+### Context rules
+- **Casual / blog (1 chat, 8 creative casual)**: contractions strongly expected
+- **Student handwritten (C)**: contractions natural, use them
+- **Formal student report (D)**: contractions OK in reflection sections
+- **Formal application / letter (E)**: contractions avoided (formal register)
+- **Academic (F)**: contractions avoided
+
+### Why this matters
+AI writes "I do not think" where a human would write "I don't think". The expanded form is grammatically correct but reads robotic in casual contexts.
+
+---
+
+## 19. Over-Formal Phrase Replacements
+
+AI loves padded formal phrases. In casual / blog English, use the shorter human version.
+
+| AI bloat | Human shorter |
+|----------|--------------|
+| "in order to" | "to" |
+| "due to the fact that" | "because" / "since" |
+| "in the event that" | "if" |
+| "for the purpose of" | "to" / "for" |
+| "with regard to" | "about" / "on" |
+| "pertaining to" | "about" / "regarding" |
+| "in light of" | "given" / "because of" |
+| "in terms of" | "for" / "when it comes to" |
+| "on the other hand" | "but" / "then again" |
+| "at this point in time" | "now" / "currently" |
+| "prior to" | "before" |
+| "subsequent to" | "after" |
+| "in the near future" | "soon" |
+| "utilize" | "use" |
+| "endeavor to" | "try to" |
+| "in addition to" | "besides" / "plus" |
+| "with the exception of" | "except" |
+| "in spite of" | "despite" |
+| "regarding the matter of" | "about" |
+
+Formal contexts (E, F): some of these may be appropriate. But "utilize" → "use" applies everywhere — "utilize" almost always reads as AI bloat.
+
+---
+
+## 20. Perfect Intro / Outro Markers (Structural AI Tell)
+
+Detecting AI-written articles via opening / closing patterns:
+
+### Intro markers (AI often opens with these)
+- "In this article, we will..."
+- "This article explores..."
+- "Today, we'll be discussing..."
+- "Let's explore..."
+- "We will examine..."
+
+### Outro markers (AI often closes with these)
+- "In conclusion,..."
+- "To summarize,..."
+- "In summary,..."
+- "Overall,..."
+- "To wrap up,..."
+
+### Human alternative
+Just start with content. End with a specific concrete point or unresolved question. The frame itself signals AI.
+
+---
+
+## 21. Semicolon / Em-dash Overuse (Punctuation Tell)
+
+AI English shows specific punctuation tics:
+- **Em dash (—)** used heavily as stylistic separator (already covered in `universal.md` §9)
+- **Semicolon (;)** used to chain clauses where a period would do
+- Ratio test: (semicolons + em-dashes) ÷ sentences > 0.3 = likely AI
+
+Humans writing casually rarely use semicolons. Academic writing uses them, but sparingly.

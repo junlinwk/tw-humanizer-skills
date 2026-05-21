@@ -1,14 +1,33 @@
-# humanize
+# tw-humanizer
 
-**讓 Claude 回應像人寫的，不像 AI。**
+**讓 AI 回應像人寫的**
 
 Context-aware response skill for Claude Code — detects 9 conversational contexts × 2 output languages, applies the right register, remembers user preferences. Top principle: admit uncertainty, ask when unclear.
 
 ---
 
+## 它解決什麼問題
+
+AI 寫的東西常有明顯的「AI 味」：
+
+- 在閒聊時還在結構化回答
+- 在情緒裡立刻給解法
+- 在求助時鋪陳一堆背景才給答案
+- 在學術寫作裡堆「綜上所述」「值得進一步研究」
+- 在不確定時編造或用模糊語言掩護
+
+`humanize` skill 在 Claude 每次回應前：
+
+1. 偵測對方語境（閒聊 / 情緒 / 求助 / 討論 / 正式 / 親密 / 衝突 / 創作 / 教學）
+2. 偵測輸出語言（中文 / 英文 / 雙語）
+3. 套用該語境的規則去 AI 味
+4. 持久記憶用戶在各語境的偏好（最小紀錄原則）
+
+---
+
 ## 安裝
 
-### macOS / Linux
+### macOS / Linux / Windows（WSL2）
 
 ```bash
 git clone https://github.com/junlinwk/tw-humanizer-skills.git
@@ -29,8 +48,6 @@ cd tw-humanizer-skills
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
-### Windows（WSL2）
-跟 macOS / Linux 步驟一樣。
 
 ### 安裝後
 
@@ -59,23 +76,6 @@ bash install.sh --help       # 完整旗標說明
 完整文件見 [`INSTALL.md`](./INSTALL.md)（含開發者模式、多工具支援、隱私說明、進階設定）。
 
 ---
-
-## 它解決什麼問題
-
-AI 寫的東西常有明顯的「AI 味」：
-
-- 在閒聊時還在結構化回答
-- 在情緒裡立刻給解法
-- 在求助時鋪陳一堆背景才給答案
-- 在學術寫作裡堆「綜上所述」「值得進一步研究」
-- 在不確定時編造或用模糊語言掩護
-
-`humanize` skill 在 Claude 每次回應前：
-
-1. 偵測對方語境（閒聊 / 情緒 / 求助 / 討論 / 正式 / 親密 / 衝突 / 創作 / 教學）
-2. 偵測輸出語言（中文 / 英文 / 雙語）
-3. 套用該語境的規則去 AI 味
-4. 持久記憶用戶在各語境的偏好（最小紀錄原則）
 
 ### 範例對照（同樣的訊息類型，不同語境的差異化回應）
 
